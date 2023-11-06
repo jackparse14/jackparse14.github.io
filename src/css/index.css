@@ -1,6 +1,7 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Ubuntu&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Pacifico&display=swap");
+/*{
+    border:1px solid orange;
+}*/
 #navbar{
     position:fixed;
     top:0;
@@ -32,8 +33,8 @@
 }
 #game,#projects,#about{
     height:95vh;
-    border-left: 3px solid rgb(52, 78, 65);
-    border-right: 3px solid rgb(52, 78, 65);
+    border-left: 5px solid rgb(52, 78, 65);
+    border-right: 5px solid rgb(52, 78, 65);
 }
 #game{
     background-color: rgb(58, 90, 64);
@@ -44,7 +45,8 @@
 #about{
     background-color: rgb(163, 177, 138);
     border-radius: 20px 20px 0px 0px;
-    border-top: 3px solid rgb(52, 78, 65);
+    border-top: 5px solid rgb(52, 78, 65);
+    
 }
 #intro{
     height:100vh;
@@ -64,43 +66,47 @@
     border-radius: 40px;
     border: 5px solid rgb(52, 78, 65);
     display:grid;
+    grid-template-columns: 30% 70%;
     align-items: center;
     width:100%;
 }
 .grid-obj-1{
     display:flex;
-    justify-content: right;
-    grid-column: 1;
-    grid-row:1;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 10%;
+    grid-column: 2;
+    grid-row:2;
+    margin-bottom: 70px;
 }
 .grid-obj-2{
     display:flex;
-    justify-content: right;
-    grid-column:2;
-    grid-row:1;
+    grid-column:1;
+    grid-row:2;
 }
 .grid-obj-3{
     grid-column: 1/3;
-    grid-row:2;
+    grid-row:1;
     padding-left:2%;
     padding-right: 2%;
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
-    margin-top: 10px;
+    margin-top: 40px;
 }
 #container{
     width:80%;
     margin:auto;
     display: flex;
     flex-direction: column;
+    
 }
-img{
-    width:350px;
-    border-radius: 0px 35px 0px 50px;
-    border-left: 5px solid rgb(52, 78, 65);
-    border-bottom: 5px solid rgb(52, 78, 65);
+.img-selfie{
+    width:100%;
+    height:100%;
+    border-radius: 0px 50px 0px 35px;
+    border-right: 5px solid rgb(52, 78, 65);
+    border-top: 5px solid rgb(52, 78, 65);
 }
 
 section{
@@ -114,15 +120,29 @@ footer{
     display:flex;
     align-items: center;
     justify-content: center;
-    border-top: 3px solid black;
+    border-top: 3px solid rgb(52, 78, 65);
+    padding-top: 5px;
 }
 body{
+    height:100%;
+    width:100%;
+    margin:0%;
+}
+.bg-image{
     background-image: url("/src/assets/index/background.jpg");
     background-repeat: no-repeat;
     background-size:cover;
     background-attachment: fixed;
-    margin:0%;
-    
+    filter: blur(3px);
+    transform: scale(1.1);
+    position: fixed;
+    z-index: -1;
+    width:100%;
+    height: 100%;
+}
+html{
+    scroll-padding-top: 5%;
+    scroll-behavior: smooth;
 }
 #intro-heading, h1{
     font-size: 80px;
@@ -136,6 +156,84 @@ h1{
 }
 h2{
     font-size: 40px;
-    font-family: "ubuntu";
+    font-family: "pacifico";
     margin:0px;
+}
+#game-header{
+    color:rgb(163, 177, 138);
+}
+.social-icons-intro{
+    width:100%;
+    display: flex;
+
+    justify-content: left;
+    padding-left: 25px;
+    font-size: 3rem;
+}
+.social-icons-footer{
+    width:100%;
+    display: flex;
+    align-items: top;
+    justify-content: right;
+    padding-right: 11%;
+    font-size: 2rem;
+    
+}
+.codewars-icon{
+    width: 3rem;
+}
+.codewars-icon-footer{
+    width: 2rem;
+}
+
+.codewars-icon{
+    filter: invert(48%) sepia(9%) saturate(1707%) hue-rotate(70deg) brightness(93%) contrast(81%);
+    display:flex;
+}
+.codewars-icon-footer{
+    filter: invert(27%) sepia(12%) saturate(989%) hue-rotate(97deg) brightness(90%) contrast(88%);
+}
+.codewars-icon-footer:hover{
+    filter: invert(48%) sepia(9%) saturate(1707%) hue-rotate(70deg) brightness(93%) contrast(81%);
+}
+.codewars-icon:hover{
+    filter: invert(27%) sepia(12%) saturate(989%) hue-rotate(97deg) brightness(90%) contrast(88%);
+}
+
+.icon{
+    
+    color:rgb(88, 129, 87);
+    margin-left:10px;
+}
+.icon-footer{
+    color: rgb(52, 78, 65);;
+    margin-left: 10px;
+}
+.icon-footer:hover{
+    color:rgb(88, 129, 87);
+}
+.icon:hover{
+    color: rgb(52, 78, 65);;
+}
+
+.intro-sub-heading{
+    text-decoration: underline;
+    color:rgb(52, 78, 65);
+}
+.intro-date{
+    margin-top:-20px;
+}
+#copyright{
+    padding-left: 11%;
+    width:500px;
+    font-size: 1.2rem;
+    color:rgb(52, 78, 65);
+    margin:0px;
+    align-self: start;
+}
+h2{
+    color:rgb(88, 129, 87);
+}
+p{
+    font-family: "Pacifico";
 }
