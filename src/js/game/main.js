@@ -8,10 +8,12 @@ window.addEventListener('load', function(){
 
     const input_manager = new InputManager(canvas);
     const audio_manager = new AudioManager();
-    const scene_manager = new SceneManager(canvas.width,canvas.height,ctx,input_manager,audio_manager);
+    const scene_manager = new SceneManager(canvas.width,canvas.height,ctx,input_manager,audio_manager, canvas);
     
+    ctx.imageSmoothingEnabled = false;
     
     function init(){
+        scene_manager.init();
         update();
     }
 
@@ -19,6 +21,7 @@ window.addEventListener('load', function(){
         ctx.clearRect(0,0, canvas.width,canvas.height);
         scene_manager.updateScene();
         scene_manager.drawScene();
+        
         requestAnimationFrame(update);
     };
 

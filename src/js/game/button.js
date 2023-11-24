@@ -1,15 +1,8 @@
 export default class button{
-    constructor(x,y,width,height,fillColor, textColor, text, nextSceneIndex){
+    constructor(x,y, text){
         this.x = x;
         this.y = y;
 
-        this.nextSceneIndex = nextSceneIndex;
-
-        this.width = width;
-        this.height = height;
-
-        this.fillColor = fillColor;
-        this.textColor = textColor;
         this.text = text;
     }
     draw(context){
@@ -35,4 +28,5 @@ export default class button{
             return true;
         }
     }
+    
 }

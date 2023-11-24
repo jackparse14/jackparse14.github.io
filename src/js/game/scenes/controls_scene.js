@@ -1,18 +1,15 @@
-import button from "../button.js";
+import navButton from "../nav_button.js";
 import scene from "./scene.js";
 
 export default class controls_scene extends scene{
-    constructor(width, height, context, input){
+    constructor(width, height, context, input, currSceneIndex){
         super(width,height,context,input);
           
-        this.mainMenuButton = new button(this.width/2 - 100,
-                                        this.height/2 + 120,
-                                        200,
-                                        50,
-                                        "blue", 
-                                        "red", 
-                                        "Main Menu",
-                                        0);
+        this.mainMenuButton = new navButton(this.width/2 - 100,
+                                            this.height/2 + 140,
+                                            "Main Menu", 
+                                            currSceneIndex,
+                                            0);
         
         this.buttons = [this.mainMenuButton];
 
@@ -24,7 +21,7 @@ export default class controls_scene extends scene{
         this.context.beginPath();
         this.drawBackground('/src/assets/game/game_background.png');
         this.drawButtons();
-        this.drawText(this.textColor,'center','middle','bold 100px arial','Controls:', this.width/2, 150);
+        this.drawTitle('center','middle','', '110', 'Plante','Controls', this.width/2, 120);
 
         this.context.closePath();
     }

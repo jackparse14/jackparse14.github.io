@@ -1,48 +1,45 @@
-import button from "../button.js";
+import navButton from "../nav_button.js";
+import volumeButton from "../volume_button.js";
 import scene from "./scene.js";
 
 export default class options_scene extends scene{
-    constructor(width, height, context, input){
+    constructor(width, height, context, input,audio, currSceneIndex, canvas){
         super(width,height,context,input);
 
-        this.volume = 50;
+        this.audio = audio;
         
-        this.mainMenuButton = new button(this.width/2 - 100,
-                                         this.height/2 + 60,
-                                         200,
-                                         50,
-                                         "blue", 
-                                         "red", 
-                                         "Main Menu",
-                                         0);
-        this.volumeUpButton = new button(this.width/2 + 150,
-                                         this.height/2 - 60 ,
-                                         50,
-                                         50,
-                                         "blue",
-                                         "red",
-                                         "⇧");
-        this.volumeDownButton = new button(this.width/2+150,
-                                           this.height/2 ,
-                                           50,
-                                           50,
-                                           "blue",
-                                           "red",
-                                           "⇩");
+        this.mainMenuButton = new navButton(this.width/2 - 100,
+                                            this.height/2 + 140,
+                                            "Main Menu",
+                                            currSceneIndex,
+                                            0);
+        this.volumeUpButton = new volumeButton(this.width/2 + 150,
+                                               this.height/2 - 42 ,
+                                               "⇧", 
+                                               audio, 
+                                               true);
+        this.volumeDownButton = new volumeButton(this.width/2+150,
+                                                 this.height/2 ,
+                                                 "⇩", 
+                                                 audio, 
+                                                 false);
         
         this.buttons = [this.mainMenuButton, this.volumeUpButton, this.volumeDownButton];
 
     }
     update(){
-
+        this.updateVolumeText();
+    }
+    updateVolumeText(){
+        this.volume = this.audio.masterVolume * 100;
     }
     draw(){
         this.context.beginPath();
 
         this.drawBackground('/src/assets/game/game_background.png');
         this.drawButtons();
-        this.drawText(this.textColor,'center','middle','bold 100px arial','Options:', this.width/2, 150);
-        this.drawText(this.textColor,'center','middle','bold 50px arial','Volume: ' + this.volume , this.width/2, 270);
+        this.drawTitle('center','middle','', '110', 'Plante','Options', this.width/2, 120);
+        this.drawText('center','middle','bold', '50' ,'arial','Volume: ' + this.volume , this.width/2, 270);
         this.context.closePath();
     }
 };
