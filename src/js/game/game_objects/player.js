@@ -15,6 +15,7 @@ export default class Player {
         this.maxSpeed = 1;
 
         this.sprite = new Image();
+        this.sprite.src = "/src/assets/game/butterfly.png";
 
         this.canBulletSpawn = true;
         this.timeBetweenBulletSpawn = 1000;
@@ -22,12 +23,23 @@ export default class Player {
     }
 
     draw(){
-        this.sprite.src = "/src/assets/game/butterfly.png";
-        
-        this.game.context.drawImage(this.sprite,this.x,this.y, this.width,this.height);
+        this.game.context.strokeStyle = "White";
+        this.game.context.strokeRect(this.x,this.y,this.width,this.height);
+        this.rotate();
         this.playerBullets.forEach(bullet =>{
             bullet.draw();
         });
+    }
+    drawSelf(){
+        this.game.context.drawImage(this.sprite,-this.x - this.width,-this.y, this.width,this.height);
+    }
+    
+    rotate(){
+        this.game.context.save();
+        this.game.context.translate(this.x + this.width/2,this.y + this.height/2);
+        this.game.context.rotate(Math.PI/2);
+        this.drawSelf();
+        this.game.context.restore();
     }
 
     update(){

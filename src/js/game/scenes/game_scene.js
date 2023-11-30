@@ -22,7 +22,7 @@ export default class game_scene extends scene {
 
         this.hasReset = false;
 
-        this.health = 3;
+        this.health = 3000;
         this.score = 0;
     }
     init(){
@@ -103,7 +103,7 @@ export default class game_scene extends scene {
         }
     }
     resetGame(){
-        this.health = 3;
+        this.health = 3000;
         this.score = 0;
         this.player.resetPlayer();
         clearInterval(this.projectileTimer);
