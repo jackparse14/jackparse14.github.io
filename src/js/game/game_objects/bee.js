@@ -1,7 +1,19 @@
 export default class bee{
-    constructor(game,x,y){
+    constructor(game,x,y, reversedInt){
         this.game = game;
-        this.x = x;
+
+        this.sprite = new Image();
+
+        if(reversedInt == 0){
+            this.sprite.src = "/src/assets/game/bee-reversed-sheet.png";
+            this.x = x;
+            this.movespeed = 2;
+        } else {
+            this.sprite.src = "/src/assets/game/bee-sheet.png";
+            this.x = x + this.game.width;
+            this.movespeed = -2;
+        }
+
         this.y = y;
 
         this.maxY = y - 50;
@@ -14,10 +26,19 @@ export default class bee{
         this.width = 60;
         this.height = 48;
 
-        this.movespeed = 2;
+        
 
-        this.sprite = new Image();
-        this.sprite.src = "/src/assets/game/bee.png";
+        
+        
+
+        this.moveTimer = null;
+
+        
+
+        this.frameWidth = 15;
+        this.frameHeight = 12;
+        this.currentFrame = 0;
+        this.maxFrame = 1;
 
         this.hasCollidedWithPLayer = false;
         this.isOutOfBounds = false;
@@ -36,24 +57,37 @@ export default class bee{
     checkOutOfBounds(){ 
         if(this.x < -100 || this.x > this.game.width - this.width + 100 || this.y < -100 || this.y > this.game.height - this.height + 100){
             this.isOutOfBounds = true;
+            
         }
     }
     draw(){
-        this.game.context.drawImage(this.sprite,this.x,this.y, this.width,this.height);
+        this.game.context.drawImage(this.sprite,this.currentFrame * this.frameWidth,0,this.frameWidth,this.frameHeight,this.x,this.y, this.width,this.height);
     }
     move(){
         this.x += this.movespeed;
-
-        if(this.yMovementState == "DOWN"){
-            this.y += 1;
-            if(this.y >= this.minY){
-                this.yMovementState = "UP";
-            }
-        } else if(this.yMovementState == "UP"){
-            this.y -= 1;
-            if(this.y <= this.maxY){
-                this.yMovementState ="DOWN";
+        if(!this.moveStraight){
+            this.currentFrame = 1;
+            if(this.yMovementState == "DOWN"){
+                this.y += 1;
+                if(this.y >= this.minY){
+                    this.currentFrame = 0;
+                    this.moveStraight = true;
+                    this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
+                    this.yMovementState = "UP";
+                }
+            } else if(this.yMovementState == "UP"){
+                this.y -= 1; 
+                if(this.y <= this.maxY){
+                    this.currentFrame = 0;
+                    this.moveStraight = true;
+                    this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
+                    this.yMovementState ="DOWN";
+                }
             }
         }
+    }
+    moveStraightTimer(){
+        this.moveStraight = false;
+        clearInterval(this.moveTimer);
     }
 }

@@ -20,19 +20,14 @@ export default class input_manager{
         canvas.addEventListener('mousedown', e => {
             this.clickCoord.push(e.pageX - (canvas.clientLeft + canvas.offsetLeft));
             this.clickCoord.push(e.pageY - (canvas.clientTop + canvas.offsetTop));
-            this.mouseXCoord = this.clickCoord[0];
-            this.mouseYCoord = this.clickCoord[1];
+            
         })
         canvas.addEventListener('mouseup', e => {
             this.clickCoord = [];
-            this.mouseXCoord = null;
-            this.mouseYCoord = null;
         })
         canvas.addEventListener("mousemove", e =>{
-            if(this.clickCoord.length != 0){
-                this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
-                this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
-            }
+            this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
+            this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
         })
     }
     getLastMouseXCoord(){

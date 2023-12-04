@@ -1,5 +1,5 @@
 export default class projectile{
-    constructor(game, x, y){
+    constructor(game, x, y, spriteInt){
         this.game = game;
         
         this.x = x;
@@ -14,6 +14,26 @@ export default class projectile{
         this.isOutOfBounds = false;
 
         this.sprite = new Image();
+        switch(spriteInt){ 
+            case 0:
+                this.sprite.src = "/src/assets/game/leaf.png";
+                break;
+            case 1:
+                this.sprite.src = "/src/assets/game/leaf-reversed.png";
+                break;
+            case 2:
+                this.sprite.src = "/src/assets/game/leaf-red.png";
+                break;
+            case 3:
+                this.sprite.src = "/src/assets/game/leaf-red-reversed.png";
+                break;
+            case 4:
+                this.sprite.src = "/src/assets/game/leaf-yellow.png";
+                break;
+            case 5:
+                this.sprite.src = "/src/assets/game/leaf-yellow-reversed.png";
+                break;
+        }
 
         this.movespeed = 1;
     }
@@ -33,10 +53,11 @@ export default class projectile{
         }
     }
     draw(){
-        this.sprite.src = "/src/assets/game/leaf.png";
+        
         this.game.context.drawImage(this.sprite,this.x,this.y, this.width,this.height);
     }
     move(){
         this.y += this.movespeed;
     }
+
 }

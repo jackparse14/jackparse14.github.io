@@ -1,5 +1,6 @@
 import projectile from "../game_objects/projectile.js";
 import bee from "../game_objects/bee.js";
+import frog from "../game_objects/frog.js";
 import player from "../game_objects/player.js";
 import scene from "./scene.js";
 
@@ -14,10 +15,12 @@ export default class game_scene extends scene {
 
         this.projectiles = [];
         this.bees = [];
+        this.frogs = [];
         this.buttons = [];
 
         this.timeBetweenProjectileSpawn = 1000;
         this.timeBetweenBeeSpawn = 2000;
+        this.timeBetweenFrogSpawn = 2000;
         this.hasInit = false;
 
         this.hasReset = false;
@@ -29,6 +32,7 @@ export default class game_scene extends scene {
         if(!this.hasInit){
             this.projectileTimer = setInterval(() => this.spawnProjectiles(), this.timeBetweenProjectileSpawn);
             this.beeTimer = setInterval(() => this.spawnBees(), this.timeBetweenBeeSpawn);
+            this.frogTimer = setInterval(() => this.spawnFrogs(), this.timeBetweenFrogSpawn);
             this.hasInit = true;
         }
     }
@@ -60,6 +64,18 @@ export default class game_scene extends scene {
                 this.bees.splice(i,1);
             }
         }
+        for(let i = 0; i < this.frogs.length ;i++){
+            this.frogs[i].update();
+            if(this.frogs[i].hasCollidedWithPlayer){
+                this.frogs.splice(i,1);
+                this.loseHealth();
+            }else if(this.frogs[i].hasCollidedWithBullet){
+                this.frogs.splice(i,1);
+                this.addScore();
+            } else if(this.frogs[i].isOutOfBounds){
+                this.frogs.splice(i,1);
+            }
+        }
     }
     draw(){
         this.drawBackground('/src/assets/game/game_background.png');
@@ -71,22 +87,30 @@ export default class game_scene extends scene {
         this.projectiles.forEach(projectile =>{
             projectile.draw();
         });
+        this.frogs.forEach(frog =>{
+            frog.draw();
+        });
         this.drawText('center','middle','bold', '25', 'arial','Score: ' + this.score, this.width/2, 30);
         this.drawText('center','middle','bold', '25', 'arial','Health: ' + this.health, this.width/2, 60);
     }
 
     spawnBees(){
-        this.bee = new bee(this,-50,this.randomNumGen(0,this.height - 50));
+        this.bee = new bee(this,-50,this.randomNumGen(48,(this.height - 96)),Math.round(this.randomNumGen(0,1)));
         this.bees.push(this.bee);
     }
     
     spawnProjectiles(){
-        this.projectile = new projectile(this, this.randomNumGen(0,this.width - 20),-50);
+        this.projectile = new projectile(this, this.randomNumGen(0,this.width - 20),-50, Math.round(this.randomNumGen(0,5)));
         this.projectiles.push(this.projectile);
     } 
 
+    spawnFrogs(){
+        this.frog = new frog(this, -50, Math.round(this.randomNumGen(0,1)),this.randomNumGen(0,(this.width/2)));
+        this.frogs.push(this.frog);
+    }
+
     randomNumGen(min,max){
-        let ranNum = (Math.random() * max) + min;
+        let ranNum = (Math.random() * (max - min)) + min;
         return ranNum;
     }
 
