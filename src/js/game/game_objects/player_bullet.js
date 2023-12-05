@@ -50,6 +50,12 @@ export default class player_bullet{
                 this.hasHitEnemy = true;
             }
         });
+        this.game.frogs.forEach(frog => {
+            if(this.x + this.width >= frog.x && this.x <= frog.x + frog.width && this.y + this.height >= frog.y && this.y <= frog.y + frog.height){
+                frog.hasCollidedWithBullet = true;
+                this.hasHitEnemy = true;
+            }
+        });
     }
     checkOutOfBounds(){ 
         if(this.x < -100 || this.x > this.game.width - this.width + 100 || this.y < -100 || this.y > this.game.height - this.height + 100){

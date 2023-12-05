@@ -1,5 +1,5 @@
 export default class frog{
-    constructor(game,x,reversed, maxX){
+    constructor(game,x,reversed, maxX, jumpSpeed){
         this.game = game;
         this.reversed = reversed;
 
@@ -8,7 +8,6 @@ export default class frog{
         this.width = 46;
         this.height = 44;
         this.y = this.game.height - this.height;
-        this.maxY = this.y - 100;
 
         this.sprite = new Image();
         if(this.reversed == 0){
@@ -23,8 +22,11 @@ export default class frog{
             this.maxX = this.game.width - maxX;
         }
         
-        this.jumpSpeed = 0.5;
-        
+        this.jumpSpeed = jumpSpeed;
+        this.fallSpeed = 0.5;
+        this.jumpModifier = 1;
+        this.jumpInterval = null;
+        this.canJump = false;
 
         this.currentFrame = 0;
         this.maxFrame = 5;
@@ -82,15 +84,31 @@ export default class frog{
         } else if (this.reversed == 1 && this.x >= this.maxX){
             this.x += this.moveSpeed;
         } else{
-            this.jump();
+            if(!this.canJump){
+                this.currentFrame = 2;
+                this.jumpInterval = setInterval(() => this.changeCanJump(), 1000);
+            } else if(this.canJump){
+                this.jump();
+            }
         }
     }
 
+    changeCanJump(){
+        this.canJump = true;
+        clearInterval(this.jumpInterval);
+    }
     jump(){
-        if(this. y >= this.maxY){
-            this.y -= this.jumpSpeed;
-            
-        }
+        this.y -= this.jumpSpeed * this.jumpModifier;
+        this.decreaseJumpMod();
         this.x += this.moveSpeed;
+        if(this.jumpModifier >= 0){
+            this.currentFrame = 3;
+        }else{
+            this.currentFrame = 5;
+        }
+    }
+
+    decreaseJumpMod(){
+        this.jumpModifier -= 0.004;
     }
 }

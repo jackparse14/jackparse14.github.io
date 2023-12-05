@@ -11,18 +11,31 @@ window.addEventListener('load', function(){
     const scene_manager = new SceneManager(canvas.width,canvas.height,ctx,input_manager,audio_manager, canvas);
     
     ctx.imageSmoothingEnabled = false;
+
+    var targetFPS = 120;
+    var fpsInterval, startTime, lastTime, firstTime, elapsed;
     
     function init(){
         scene_manager.init();
+        fpsInterval = 1000/ targetFPS;
+        firstTime = Date.now();
+        startTime = firstTime;
         update();
     }
 
     function update(){
-        ctx.clearRect(0,0, canvas.width,canvas.height);
-        scene_manager.updateScene();
-        scene_manager.drawScene();
-        
         requestAnimationFrame(update);
+
+        lastTime = Date.now();
+        elapsed = lastTime - firstTime;
+
+        if(elapsed > fpsInterval){
+            firstTime = lastTime - (elapsed % fpsInterval);
+
+            ctx.clearRect(0,0, canvas.width,canvas.height);
+            scene_manager.updateScene();
+            scene_manager.drawScene();
+        }
     };
 
     init();
