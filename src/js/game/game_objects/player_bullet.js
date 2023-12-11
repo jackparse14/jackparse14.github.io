@@ -1,22 +1,14 @@
+import game_object from "./game_object.js";
 
-export default class player_bullet{
+export default class player_bullet extends game_object{
     constructor(x,y, game){
-        this.x = x;
-        this.y = y;
+        super(x,y,10,10,game);
 
-        this.game = game;
-
-        
         this.mouseCoordX = this.game.input.getLastMouseXCoord();
         this.mouseCoordY = this.game.input.getLastMouseYCoord();
 
         this.hasHitEnemy = false;
-        this.isOutOfBounds = false;
 
-        this.width = 10;
-        this.height = 10;
-
-        this.sprite = new Image();
         this.sprite.src = "/src/assets/game/bullet.png";
 
         this.moveSpeed = 2;
@@ -38,9 +30,9 @@ export default class player_bullet{
         this.checkOutOfBounds();
     }
     checkEnemyCollision(){
-        this.game.projectiles.forEach(projectile => {
-            if(this.x + this.width >= projectile.x && this.x <= projectile.x + projectile.width && this.y + this.height >= projectile.y && this.y <= projectile.y + projectile.height){
-                projectile.hasCollidedWithBullet = true;
+        this.game.leaves.forEach(leaf => {
+            if(this.x + this.width >= leaf.x && this.x <= leaf.x + leaf.width && this.y + this.height >= leaf.y && this.y <= leaf.y + leaf.height){
+                leaf.hasCollidedWithBullet = true;
                 this.hasHitEnemy = true;
             }
         });
@@ -56,14 +48,6 @@ export default class player_bullet{
                 this.hasHitEnemy = true;
             }
         });
-    }
-    checkOutOfBounds(){ 
-        if(this.x < -100 || this.x > this.game.width - this.width + 100 || this.y < -100 || this.y > this.game.height - this.height + 100){
-            this.isOutOfBounds = true;
-        }
-    }
-    draw(){
-        this.game.context.drawImage(this.sprite,this.x,this.y, this.width,this.height);
     }
     move(){
         

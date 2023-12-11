@@ -1,4 +1,4 @@
-import projectile from "../game_objects/projectile.js";
+import leaf from "../game_objects/leaf.js";
 import bee from "../game_objects/bee.js";
 import frog from "../game_objects/frog.js";
 import player from "../game_objects/player.js";
@@ -12,9 +12,9 @@ export default class game_scene extends scene {
         this.currSceneIndex = currSceneIndex;
 
         //Instantiate GameObjects
-        this.player = new player(this);
+        this.player = new player(60,48,this);
 
-        this.projectiles = [];
+        this.leaves = [];
         this.bees = [];
         this.frogs = [];
         this.buttons = [];
@@ -29,6 +29,11 @@ export default class game_scene extends scene {
 
         this.health = 3000;
         this.score = 0;
+        this.exp = 0;
+        this.expForLevel = 100;
+        this.expPerLevelMod = 1.5;
+
+        this.playerLevel = 0;
     }
     init(){
         if(!this.hasInit){
@@ -47,18 +52,20 @@ export default class game_scene extends scene {
                 this.smokes.splice(i,1);
             }
         }
-        for(let i = 0; i < this.projectiles.length ;i++){
-            this.projectiles[i].update();
-            if(this.projectiles[i].hasCollidedWithPlayer){
-                this.spawnSmoke(this.projectiles[i].x,this.projectiles[i].y,this.projectiles[i].width,this.projectiles[i].height);
-                this.projectiles.splice(i,1);
+        for(let i = 0; i < this.leaves.length ;i++){
+            this.leaves[i].update();
+            if(this.leaves[i].hasCollidedWithPlayer){
+                this.spawnSmoke(this.leaves[i].x,this.leaves[i].y,this.leaves[i].width,this.leaves[i].height);
+                this.leaves.splice(i,1);
                 this.loseHealth();
-            }else if(this.projectiles[i].hasCollidedWithBullet){
-                this.spawnSmoke(this.projectiles[i].x,this.projectiles[i].y,this.projectiles[i].width,this.projectiles[i].height);
-                this.projectiles.splice(i,1);
+                this.loseScore();
+            }else if(this.leaves[i].hasCollidedWithBullet){
+                this.spawnSmoke(this.leaves[i].x,this.leaves[i].y,this.leaves[i].width,this.leaves[i].height);
+                this.leaves.splice(i,1);
                 this.addScore();
-            } else if(this.projectiles[i].isOutOfBounds){
-                this.projectiles.splice(i,1);
+                this.addExp();
+            } else if(this.leaves[i].isOutOfBounds){
+                this.leaves.splice(i,1);
             }
         }
         for(let i = 0; i < this.bees.length ;i++){
@@ -67,10 +74,12 @@ export default class game_scene extends scene {
                 this.spawnSmoke(this.bees[i].x,this.bees[i].y,this.bees[i].width,this.bees[i].height);
                 this.bees.splice(i,1);
                 this.loseHealth();
+                this.loseScore();
             }else if(this.bees[i].hasCollidedWithBullet){
                 this.spawnSmoke(this.bees[i].x,this.bees[i].y,this.bees[i].width,this.bees[i].height);
                 this.bees.splice(i,1);
                 this.addScore();
+                this.addExp();
             } else if(this.bees[i].isOutOfBounds){
                 this.bees.splice(i,1);
             }
@@ -81,10 +90,12 @@ export default class game_scene extends scene {
                 this.spawnSmoke(this.frogs[i].x,this.frogs[i].y,this.frogs[i].width,this.frogs[i].height);
                 this.frogs.splice(i,1);
                 this.loseHealth();
+                this.loseScore();
             }else if(this.frogs[i].hasCollidedWithBullet){
                 this.spawnSmoke(this.frogs[i].x,this.frogs[i].y,this.frogs[i].width,this.frogs[i].height);
                 this.frogs.splice(i,1);
                 this.addScore();
+                this.addExp();
             } else if(this.frogs[i].isOutOfBounds){
                 this.frogs.splice(i,1);
             }
@@ -92,23 +103,25 @@ export default class game_scene extends scene {
     }
     draw(){
         this.drawBackground('/src/assets/game/game_background.png');
-        this.player.draw();
+        this.player.drawSelf();
 
         this.smokes.forEach(smoke=>{
-            smoke.draw();
+            smoke.drawSelf();
         });
 
         this.bees.forEach(bee =>{
-            bee.draw();
+            bee.drawFrame();
         });
-        this.projectiles.forEach(projectile =>{
-            projectile.draw();
+        this.leaves.forEach(leaf =>{
+            leaf.draw();
         });
         this.frogs.forEach(frog =>{
-            frog.draw();
+            frog.drawSelf();
         });
         this.drawText('center','middle','bold', '25', 'arial','Score: ' + this.score, this.width/2, 30);
         this.drawText('center','middle','bold', '25', 'arial','Health: ' + this.health, this.width/2, 60);
+        this.drawText('center','middle','bold', '25', 'arial','EXP: ' + this.exp, this.width/2, 90);
+        this.drawText('center','middle','bold', '25', 'arial','Level: ' + this.playerLevel, this.width/2, 120);
     }
 
     spawnSmoke(x,y,width,height){
@@ -122,8 +135,8 @@ export default class game_scene extends scene {
     }
     
     spawnProjectiles(){
-        this.projectile = new projectile(this, this.randomNumGen(0,this.width - 20),-50, Math.round(this.randomNumGen(0,5)));
-        this.projectiles.push(this.projectile);
+        this.projectile = new leaf(this, this.randomNumGen(0,this.width - 20),-50, Math.round(this.randomNumGen(0,5)));
+        this.leaves.push(this.projectile);
     } 
 
     spawnFrogs(){
@@ -136,11 +149,30 @@ export default class game_scene extends scene {
         return ranNum;
     }
 
+    addExp(){
+        this.exp += 10;
+        if(this.exp >= this.expForLevel){
+            this.levelUp();
+        }
+    }
+
+    levelUp(){
+        this.expForLevel *= this.expPerLevelMod;
+        this.exp = 0;
+        this.playerLevel++;
+    }
+
     addScore(){
         this.score += 1;
     }
+    loseScore(){
+        if(this.score > 0 ){
+            this.score -= 1;
+        }
+    }
 
     loseHealth(){
+        this.player.startDamagedTimer();
         this.health -= 1;
         if(this.health <= 0){
             console.log("dead - change scene");
@@ -154,7 +186,7 @@ export default class game_scene extends scene {
         this.player.resetPlayer();
         clearInterval(this.projectileTimer);
         clearInterval(this.beeTimer);
-        this.projectiles = [];
+        this.leaves = [];
         this.bees = [];
         this.player.playerBullets = [];
         this.hasInit = false;

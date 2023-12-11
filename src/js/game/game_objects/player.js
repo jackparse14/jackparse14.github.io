@@ -1,30 +1,23 @@
+import animatedObject from "./animated_object.js";
 import playerBullet from "./player_bullet.js";
 
-export default class Player {
-    constructor(game){
-        this.game = game;
+export default class Player extends animatedObject{
+    constructor(width,height,game){
+        super((game.width/2 - width/2),(game.height/2 - height/2), width, height,game, 15,12,7);
         this.inputKeys = game.input.keys;
-
-        this.width = 60;
-        this.height = 48;
-        this.x = this.game.width/2 - this.width/2;
-        this.y = this.game.height/2 - this.height/2;
         
         this.currYSpeed = 0;
         this.currXSpeed = 0;
         this.maxSpeed = 1;
 
-        
-        
         this.angleToRotate = 0;
 
-        this.sprite = new Image();
-        this.sprite.src = "../assets/game/butterfly-Sheet.png";
+        this.undamagedSprite = "../assets/game/butterfly-Sheet.png";
+        this.damagedSprite = "../assets/game/butterfly-sheet-damaged.png";
+        this.sprite.src = this.undamagedSprite;
 
-        this.frameWidth = 15;
-        this.frameHeight = 12;
-        this.currentFrame = 0;
-        this.maxFrame = 7;
+        this.damageTimer = null;
+        this.isDamagedTimerRunning = false;
 
         this.hasInit = false;
 
@@ -40,35 +33,42 @@ export default class Player {
         }
     }
 
-    changeAnimationFrame(){
-        this.currentFrame++;
+    startDamagedTimer(){
+        if(!this.isDamagedTimerRunning){
+            this.sprite.src = this.damagedSprite;
+            this.isDamagedTimerRunning = true;
+        } else {
+            clearInterval(this.damageTimer);
+        }
+        this.damageTimer = setInterval(() => this.changeToUndamagedSpriteSheet(), 1000);
     }
 
-    draw(){
-        
-        /*  HITBOX DISPLAY
+    changeToUndamagedSpriteSheet(){
+        this.sprite.src = this.undamagedSprite;
+        this.isDamagedTimerRunning = false;
+        clearInterval(this.damageTimer);
+    }
+
+  
+
+    drawSelf(){
+          //HITBOX DISPLAY
         this.game.context.strokeStyle = "White";
-        this.game.context.strokeRect(this.x,this.y,this.width,this.height);*/
+        this.game.context.strokeRect(this.x,this.y,this.width,this.height);
+
         this.rotate();
         this.playerBullets.forEach(bullet =>{
             bullet.draw();
         });
     }
-    drawFrame(){
-        this.game.context.drawImage(this.sprite,this.currentFrame * this.frameWidth,0, this.frameWidth,this.frameHeight,this.width / -2,this.height / -2, this.width,this.height);
-        if(this.currentFrame == this.maxFrame){
-            this.currentFrame = 0;
-        }
-    }
-
-
-    
     rotate(){
         this.game.context.save();
         this.game.context.translate(this.x + this.width/2,this.y + this.height/2);
-        
         this.game.context.rotate(this.angleToRotate);
-        this.drawFrame();
+        this.drawFrameRotate();
+        if(this.currentFrame == this.maxFrame){
+            this.currentFrame = 0;
+        }
         this.game.context.restore();
     }
 

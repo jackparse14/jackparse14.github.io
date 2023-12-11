@@ -1,12 +1,11 @@
-export default class bee{
-    constructor(game,x,y, reversedInt){
-        this.game = game;
+import animated_object from "./animated_object.js";
 
-        this.sprite = new Image();
+export default class bee extends animated_object{
+    constructor(game,x,y, reversedInt){
+        super(x,y,60,48,game, 15,12,1);
 
         if(reversedInt == 0){
             this.sprite.src = "../assets/game/bee-reversed-sheet.png";
-            this.x = x;
             this.movespeed = 2;
         } else {
             this.sprite.src = "../assets/game/bee-Sheet.png";
@@ -14,34 +13,16 @@ export default class bee{
             this.movespeed = -2;
         }
 
-        this.y = y;
-
         this.maxY = y - 50;
         this.minY = y + 50;
 
         this.player = this.game.player;
 
         this.yMovementState = "DOWN";
-
-        this.width = 60;
-        this.height = 48;
-
         
-
-        
-        
-
         this.moveTimer = null;
 
-        
-
-        this.frameWidth = 15;
-        this.frameHeight = 12;
-        this.currentFrame = 0;
-        this.maxFrame = 1;
-
         this.hasCollidedWithPLayer = false;
-        this.isOutOfBounds = false;
     }
 
     update(){
@@ -54,15 +35,7 @@ export default class bee{
             this.hasCollidedWithPlayer = true;
         }
     }
-    checkOutOfBounds(){ 
-        if(this.x < -100 || this.x > this.game.width - this.width + 100 || this.y < -100 || this.y > this.game.height - this.height + 100){
-            this.isOutOfBounds = true;
-            
-        }
-    }
-    draw(){
-        this.game.context.drawImage(this.sprite,this.currentFrame * this.frameWidth,0,this.frameWidth,this.frameHeight,this.x,this.y, this.width,this.height);
-    }
+
     move(){
         this.x += this.movespeed;
         if(!this.moveStraight){
@@ -77,7 +50,7 @@ export default class bee{
                 }
             } else if(this.yMovementState == "UP"){
                 this.y -= 1; 
-                if(this.y <= this.maxY){
+                if(this.drawY <= this.maxY){
                     this.currentFrame = 0;
                     this.moveStraight = true;
                     this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
