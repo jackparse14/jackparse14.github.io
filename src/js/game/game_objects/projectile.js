@@ -16,22 +16,22 @@ export default class projectile{
         this.sprite = new Image();
         switch(spriteInt){ 
             case 0:
-                this.sprite.src = "/src/assets/game/leaf.png";
+                this.sprite.src = "../assets/game/leaf.png";
                 break;
             case 1:
-                this.sprite.src = "/src/assets/game/leaf-reversed.png";
+                this.sprite.src = "../assets/game/leaf-reversed.png";
                 break;
             case 2:
-                this.sprite.src = "/src/assets/game/leaf-red.png";
+                this.sprite.src = "../assets/game/leaf-red.png";
                 break;
             case 3:
-                this.sprite.src = "/src/assets/game/leaf-red-reversed.png";
+                this.sprite.src = "../assets/game/leaf-red-reversed.png";
                 break;
             case 4:
-                this.sprite.src = "/src/assets/game/leaf-yellow.png";
+                this.sprite.src = "../assets/game/leaf-yellow.png";
                 break;
             case 5:
-                this.sprite.src = "/src/assets/game/leaf-yellow-reversed.png";
+                this.sprite.src = "../assets/game/leaf-yellow-reversed.png";
                 break;
         }
 

@@ -5,11 +5,11 @@ export default class bee{
         this.sprite = new Image();
 
         if(reversedInt == 0){
-            this.sprite.src = "/src/assets/game/bee-reversed-sheet.png";
+            this.sprite.src = "../assets/game/bee-reversed-sheet.png";
             this.x = x;
             this.movespeed = 2;
         } else {
-            this.sprite.src = "/src/assets/game/bee-sheet.png";
+            this.sprite.src = "../assets/game/bee-sheet.png";
             this.x = x + this.game.width;
             this.movespeed = -2;
         }

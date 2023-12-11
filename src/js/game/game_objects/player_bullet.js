@@ -17,7 +17,7 @@ export default class player_bullet{
         this.height = 10;
 
         this.sprite = new Image();
-        this.sprite.src = "/src/assets/game/bullet.png";
+        this.sprite.src = "../assets/game/bullet.png";
 
         this.moveSpeed = 2;
 

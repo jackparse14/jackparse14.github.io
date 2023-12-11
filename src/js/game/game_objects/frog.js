@@ -11,12 +11,12 @@ export default class frog{
 
         this.sprite = new Image();
         if(this.reversed == 0){
-            this.sprite.src = "/src/assets/game/frog-sheet.png";
+            this.sprite.src = "../assets/game/frog-sheet.png";
             this.moveSpeed = 0.5;
             this.x = x;
             this.maxX = maxX - this.width;
         } else {
-            this.sprite.src = "/src/assets/game/frog-reversed-sheet.png";
+            this.sprite.src = "../assets/game/frog-reversed-sheet.png";
             this.moveSpeed = -0.5;
             this.x = x + this.game.width;
             this.maxX = this.game.width - maxX;
