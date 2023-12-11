@@ -4,11 +4,6 @@ export default class leaf extends game_object{
     constructor(game, x, y, spriteInt){
         super(x,y,20,20,game);
 
-        this.player = this.game.player;
-
-        this.hasCollidedWithPlayer = false;
-        this.hasCollidedWithBullet = false;
-
         switch(spriteInt){ 
             case 0:
                 this.sprite.src = "../assets/game/leaf.png";
@@ -34,13 +29,10 @@ export default class leaf extends game_object{
     }
     update(){
         this.move();
-        this.checkPlayerCollision();
-        this.checkOutOfBounds();
-    }
-    checkPlayerCollision(){
-        if(this.x + this.width >= this.player.x && this.x <= this.player.x + this.player.width && this.y + this.height >= this.player.y && this.y <= this.player.y + this.player.height){
+        if(this.checkCollision(this.game.player)){
             this.hasCollidedWithPlayer = true;
         }
+        this.checkOutOfBounds();
     }
 
     move(){

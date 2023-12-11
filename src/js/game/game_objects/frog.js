@@ -46,7 +46,7 @@ export default class frog extends animated_object{
     }
 
     checkPlayerCollision(){
-        if(this.x + this.width >= this.player.x && this.x <= this.player.x + this.player.width && this.y + this.height >= this.player.y && this.y <= this.player.y + this.player.height){
+        if(this.checkCollision(this.game.player)){
             this.hasCollidedWithPlayer = true;
         }
     }

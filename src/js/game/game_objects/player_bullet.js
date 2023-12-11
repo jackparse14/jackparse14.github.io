@@ -30,21 +30,14 @@ export default class player_bullet extends game_object{
         this.checkOutOfBounds();
     }
     checkEnemyCollision(){
-        this.game.leaves.forEach(leaf => {
-            if(this.x + this.width >= leaf.x && this.x <= leaf.x + leaf.width && this.y + this.height >= leaf.y && this.y <= leaf.y + leaf.height){
-                leaf.hasCollidedWithBullet = true;
-                this.hasHitEnemy = true;
-            }
-        });
-        this.game.bees.forEach(bee => {
-            if(this.x + this.width >= bee.x && this.x <= bee.x + bee.width && this.y + this.height >= bee.y && this.y <= bee.y + bee.height){
-                bee.hasCollidedWithBullet = true;
-                this.hasHitEnemy = true;
-            }
-        });
-        this.game.frogs.forEach(frog => {
-            if(this.x + this.width >= frog.x && this.x <= frog.x + frog.width && this.y + this.height >= frog.y && this.y <= frog.y + frog.height){
-                frog.hasCollidedWithBullet = true;
+        this.checkArrayCollision(this.game.leaves);
+        this.checkArrayCollision(this.game.bees);
+        this.checkArrayCollision(this.game.frogs);
+    }
+    checkArrayCollision(array){
+        array.forEach(element => {
+            if(this.checkCollision(element)){
+                element.hasCollidedWithBullet = true;
                 this.hasHitEnemy = true;
             }
         });

@@ -29,7 +29,7 @@ export default class Player extends animatedObject{
     init(){
         if(!this.hasInit){
             setInterval(()=> this.changeAnimationFrame(),100);
-            this.hasInit = true;
+            this.hasInit = true; 
         }
     }
 

@@ -21,8 +21,6 @@ export default class bee extends animated_object{
         this.yMovementState = "DOWN";
         
         this.moveTimer = null;
-
-        this.hasCollidedWithPLayer = false;
     }
 
     update(){
@@ -31,7 +29,7 @@ export default class bee extends animated_object{
         this.checkOutOfBounds();
     }
     checkPlayerCollision(){
-        if(this.x + this.width >= this.player.x && this.x <= this.player.x + this.player.width && this.y + this.height >= this.player.y && this.y <= this.player.y + this.player.height){
+        if(this.checkCollision(this.game.player)){
             this.hasCollidedWithPlayer = true;
         }
     }
