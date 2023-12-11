@@ -19,7 +19,7 @@ export default class Player {
         this.angleToRotate = 0;
 
         this.sprite = new Image();
-        this.sprite.src = "/jackparse14.github.io/assets/game/butterfly-sheet.png";
+        this.sprite.src = "jackparse14.github.io/assets/game/butterfly-sheet.png";
 
         this.frameWidth = 15;
         this.frameHeight = 12;
