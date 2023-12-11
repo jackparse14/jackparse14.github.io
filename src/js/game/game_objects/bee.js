@@ -9,7 +9,7 @@ export default class bee{
             this.x = x;
             this.movespeed = 2;
         } else {
-            this.sprite.src = "../assets/game/bee-sheet.png";
+            this.sprite.src = "../assets/game/bee-Sheet.png";
             this.x = x + this.game.width;
             this.movespeed = -2;
         }
