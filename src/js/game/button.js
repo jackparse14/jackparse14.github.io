@@ -3,16 +3,20 @@ export default class button{
         this.x = x;
         this.y = y;
 
+        this.isActive = true;
+
         this.text = text;
     }
     draw(context){
         context.fillStyle = this.fillColor;
         context.fillRect(this.x,this.y, this.width, this.height);
 
+        context.beginPath();
         context.lineWidth = 2;
         context.strokeStyle = this.textColor;
         context.rect(this.x,this.y,this.width,this.height);
         context.stroke();
+        context.closePath();
 
         context.fillStyle = this.textColor;
         context.textAlign = 'center';
@@ -22,10 +26,12 @@ export default class button{
     }
 
     isClickInBounds(clickCoord){
-        if(clickCoord[0] < this.x || clickCoord[0] > this.x + this.width || clickCoord[1] < this.y || clickCoord[1] > this.y + this.height){
-            return false;
-        }else{
-            return true;
+        if(this.isActive){  
+            if(clickCoord[0] < this.x || clickCoord[0] > this.x + this.width || clickCoord[1] < this.y || clickCoord[1] > this.y + this.height){
+                return false;
+            }else{
+                return true;
+            }
         }
     }
     

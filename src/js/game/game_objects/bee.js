@@ -9,18 +9,20 @@ export default class bee extends animated_object{
             this.movespeed = 2;
         } else {
             this.sprite.src = "../assets/game/bee-Sheet.png";
-            this.x = x + this.game.width;
+            this.x = x + game.width;
             this.movespeed = -2;
         }
 
         this.maxY = y - 50;
         this.minY = y + 50;
 
-        this.player = this.game.player;
-
+        this.yPreviousState = "DOWN";
         this.yMovementState = "DOWN";
+
+        this.hasStateTimerStarted = false;
         
         this.moveTimer = null;
+        this.moveStraight = false;
     }
 
     update(){
@@ -35,30 +37,55 @@ export default class bee extends animated_object{
     }
 
     move(){
-        this.x += this.movespeed;
-        if(!this.moveStraight){
-            this.currentFrame = 1;
-            if(this.yMovementState == "DOWN"){
+        this.moveXDirection();
+        this.moveYDirection();
+        
+    }
+    moveYDirection(){
+        switch(this.yMovementState){
+            case "UP":
+                this.currentFrame = 1;
+                this.y -= 1;
+                if(this.y <= this.maxY){
+                    this.changeToStraightState();
+                }
+                break;
+            case "DOWN":
+                this.currentFrame = 1;
                 this.y += 1;
                 if(this.y >= this.minY){
-                    this.currentFrame = 0;
-                    this.moveStraight = true;
-                    this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
-                    this.yMovementState = "UP";
+                    this.changeToStraightState();
                 }
-            } else if(this.yMovementState == "UP"){
-                this.y -= 1; 
-                if(this.drawY <= this.maxY){
-                    this.currentFrame = 0;
-                    this.moveStraight = true;
+                break;
+            case "STRAIGHT":
+                this.currentFrame = 0;
+                if(!this.hasStateTimerStarted){
+                    this.hasStateTimerStarted = true;
                     this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
-                    this.yMovementState ="DOWN";
                 }
-            }
+                break;
         }
     }
+
+    changeToStraightState(){
+        this.yPreviousState = this.yMovementState;
+        this.yMovementState = "STRAIGHT";
+    }
+    changeToUpOrDownState(){
+        if(this.yPreviousState == "DOWN"){
+            this.yMovementState = "UP";
+        } else if(this.yPreviousState == "UP"){
+            this.yMovementState = "DOWN";
+        }
+        
+    }
+
+    moveXDirection(){
+        this.x += this.movespeed;
+    }
     moveStraightTimer(){
-        this.moveStraight = false;
+        this.changeToUpOrDownState();
+        this.hasStateTimerStarted = false;
         clearInterval(this.moveTimer);
     }
 }

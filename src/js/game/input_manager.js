@@ -5,6 +5,7 @@ export default class input_manager{
         this.mouseXCoord = null;
         this.mouseYCoord = null;
 
+        this.clickTimer = null;
         
 
         window.addEventListener('keydown', e => {
@@ -20,15 +21,20 @@ export default class input_manager{
         canvas.addEventListener('mousedown', e => {
             this.clickCoord.push(e.pageX - (canvas.clientLeft + canvas.offsetLeft));
             this.clickCoord.push(e.pageY - (canvas.clientTop + canvas.offsetTop));
-            
+            this.clickTimer = setInterval(()=> this.clearClickCoord(), 2000);
+            console.log("start timer");
         })
         canvas.addEventListener('mouseup', e => {
-            this.clickCoord = [];
+            clearInterval(this.clickTimer);
+            this.clearClickCoord();
         })
         canvas.addEventListener("mousemove", e =>{
             this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
             this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
         })
+    }
+    clearClickCoord(){
+        this.clickCoord = [];
     }
     getLastMouseXCoord(){
         return this.mouseXCoord;

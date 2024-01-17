@@ -4,6 +4,8 @@ import frog from "../game_objects/frog.js";
 import player from "../game_objects/player.js";
 import smoke from "../game_objects/smoke.js";
 import scene from "./scene.js";
+import progress_bar from "../user_interface/progress_bar.js";
+import upgrade_tab from "../upgrade_tab.js";
 
 export default class game_scene extends scene {
     constructor(width, height, context, input, currSceneIndex){
@@ -13,11 +15,26 @@ export default class game_scene extends scene {
 
         //Instantiate GameObjects
         this.player = new player(60,48,this);
+        this.health = 30;
+        this.healthBar = new progress_bar((this.width/2) - 50,60,this.player.width,10,"#FF0000", this.health, false);
+
+        this.exp = 0;
+        this.expForLevel = 30;
+        this.expPerLevelMod = 1.5;
+        this.expBar = new progress_bar(0,0, this.width,10,"#0000FF",this.expForLevel, true);
+
+        this.upgradeTab1 = new upgrade_tab(100, this.width);
+        this.upgradeTab2 = new upgrade_tab(500, this.width);
+
+        this.isLevelUp = false;
 
         this.leaves = [];
         this.bees = [];
         this.frogs = [];
-        this.buttons = [];
+        this.buttons = [this.upgradeTab1,this.upgradeTab2];
+        this.buttons.forEach(button => {
+            button.isActive = false;
+        });
         this.smokes = [];
 
         this.timeBetweenProjectileSpawn = 1000;
@@ -27,11 +44,10 @@ export default class game_scene extends scene {
 
         this.hasReset = false;
 
-        this.health = 3000;
+        
         this.score = 0;
-        this.exp = 0;
-        this.expForLevel = 100;
-        this.expPerLevelMod = 1.5;
+        
+        
 
         this.playerLevel = 0;
     }
@@ -47,6 +63,9 @@ export default class game_scene extends scene {
     update(){
         this.init();
         this.player.update();
+        this.healthBar.x = this.player.x - (this.healthBar.width - this.player.width)/2;
+      
+        this.healthBar.y = this.player.y + this.player.height + 10;
         for(let i = 0; i < this.smokes.length; i++){
             if(this.smokes[i].destroySelf){
                 this.smokes.splice(i,1);
@@ -118,10 +137,20 @@ export default class game_scene extends scene {
         this.frogs.forEach(frog =>{
             frog.drawSelf();
         });
+       this.drawUI();
+    }
+    drawUI(){
         this.drawText('center','middle','bold', '25', 'arial','Score: ' + this.score, this.width/2, 30);
-        this.drawText('center','middle','bold', '25', 'arial','Health: ' + this.health, this.width/2, 60);
-        this.drawText('center','middle','bold', '25', 'arial','EXP: ' + this.exp, this.width/2, 90);
+        this.healthBar.draw(this.context);
+        this.expBar.draw(this.context);
         this.drawText('center','middle','bold', '25', 'arial','Level: ' + this.playerLevel, this.width/2, 120);
+
+        if(this.isLevelUp){
+            this.buttons.forEach(button=>{
+                button.isActive = true;
+                button.draw(this.context);
+            });
+        }
     }
 
     spawnSmoke(x,y,width,height){
@@ -151,15 +180,19 @@ export default class game_scene extends scene {
 
     addExp(){
         this.exp += 10;
+        this.expBar.increaseFill(10);
         if(this.exp >= this.expForLevel){
             this.levelUp();
+            this.expBar.resetBar();
         }
     }
 
     levelUp(){
         this.expForLevel *= this.expPerLevelMod;
+        this.expBar.maxProgress = this.expForLevel;
         this.exp = 0;
         this.playerLevel++;
+        this.isLevelUp = true;
     }
 
     addScore(){
@@ -173,6 +206,7 @@ export default class game_scene extends scene {
 
     loseHealth(){
         this.player.startDamagedTimer();
+        this.healthBar.reduceFill(1);
         this.health -= 1;
         if(this.health <= 0){
             console.log("dead - change scene");
@@ -181,7 +215,9 @@ export default class game_scene extends scene {
         }
     }
     resetGame(){
-        this.health = 3000;
+        this.health = 30;
+        this.healthBar.resetBar();
+        this.expBar.resetBar();
         this.score = 0;
         this.player.resetPlayer();
         clearInterval(this.projectileTimer);
