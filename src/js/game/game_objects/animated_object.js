@@ -19,6 +19,7 @@ export default class animated_object extends game_object{
     }
 
     changeAnimationFrame(){
+        if(this.game.isPaused){return;};
         this.currentFrame++;
     }
 }

@@ -1,5 +1,6 @@
 export default class input_manager{
     constructor(canvas){
+        this.isActive = true;
         this.keys = [];
         this.clickCoord = [];
         this.mouseXCoord = null;
@@ -7,31 +8,44 @@ export default class input_manager{
 
         this.clickTimer = null;
         
+        
+            window.addEventListener('keydown', e => {
+                if(!this.isActive){return;};
+                if((e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd' || e.key === '/') && this.keys.indexOf(e.key) === -1){
+                    this.keys.push(e.key);
+                }
+                
+            })
+            window.addEventListener('keyup', e => {
+                if(!this.isActive){return;};
+                if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd' || e.key === '/'){
+                    this.keys.splice(this.keys.indexOf(e.key), 1)
+                }   
+            })
+            canvas.addEventListener('mousedown', e => {
+                //if(!this.isActive){return;};
+                console.log("mousedown");
+                this.clickCoord.push(e.pageX - (canvas.clientLeft + canvas.offsetLeft));
+                this.clickCoord.push(e.pageY - (canvas.clientTop + canvas.offsetTop));
+            })
+            canvas.addEventListener('mouseup', e => {
+                //if(!this.isActive){return;};
+                clearInterval(this.clickTimer);
+                this.clearClickCoord();
+            })
+            canvas.addEventListener("mousemove", e =>{
+                if(!this.isActive){return;};
 
-        window.addEventListener('keydown', e => {
-            if((e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd' || e.key === '/') && this.keys.indexOf(e.key) === -1){
-                this.keys.push(e.key);
-            }
-        })
-        window.addEventListener('keyup', e => {
-            if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key === 'd' || e.key === '/'){
-                this.keys.splice(this.keys.indexOf(e.key), 1)
-            }
-        })
-        canvas.addEventListener('mousedown', e => {
-            this.clickCoord.push(e.pageX - (canvas.clientLeft + canvas.offsetLeft));
-            this.clickCoord.push(e.pageY - (canvas.clientTop + canvas.offsetTop));
-            this.clickTimer = setInterval(()=> this.clearClickCoord(), 2000);
-            console.log("start timer");
-        })
-        canvas.addEventListener('mouseup', e => {
-            clearInterval(this.clickTimer);
-            this.clearClickCoord();
-        })
-        canvas.addEventListener("mousemove", e =>{
-            this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
-            this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
-        })
+                this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
+                this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
+            })
+        
+    }   
+    pauseInput(){ 
+        this.isActive = false;
+    }
+    startInput(){
+        this.isActive = true;
     }
     clearClickCoord(){
         this.clickCoord = [];

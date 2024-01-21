@@ -114,6 +114,7 @@ export default class Player extends animatedObject{
     }
 
     spawnPlayerBullet(){
+        console.log("shoot bullet");
         this.bullet = new playerBullet(this.x + this.width/2,this.y + this.height/2, this.game);
         this.playerBullets.push(this.bullet);
         this.canBulletSpawn = false;

@@ -1,5 +1,5 @@
 export default class progress_bar{
-    constructor(x,y,width,height,fillColor, maxProgress, isIncrease){
+    constructor(x,y,width,height,fillColor,backgroundColor,maxProgress, isIncrease){
         this.x = x;
         this.y = y;
 
@@ -17,7 +17,7 @@ export default class progress_bar{
         this.height = height;
 
         this.fillColor = fillColor;
-        this.backgroundColor = "#dad7cd";
+        this.backgroundColor = backgroundColor;
 
         this.progress = 0;
         this.maxProgress = maxProgress;

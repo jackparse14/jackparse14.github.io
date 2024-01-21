@@ -16,16 +16,18 @@ export default class game_scene extends scene {
         //Instantiate GameObjects
         this.player = new player(60,48,this);
         this.health = 30;
-        this.healthBar = new progress_bar((this.width/2) - 50,60,this.player.width,10,"#FF0000", this.health, false);
+        this.healthBar = new progress_bar((this.width/2) - 50,60,this.player.width,10,"#FF0000", "#dad7cd", this.health, false);
 
         this.exp = 0;
         this.expForLevel = 30;
         this.expPerLevelMod = 1.5;
-        this.expBar = new progress_bar(0,0, this.width,10,"#0000FF",this.expForLevel, true);
+        this.expBar = new progress_bar(0,0, this.width,10,"#0000FF","#344e41",this.expForLevel, true);
 
-        this.upgradeTab1 = new upgrade_tab(100, this.width);
-        this.upgradeTab2 = new upgrade_tab(500, this.width);
+        this.upgradeTab1 = new upgrade_tab(75,50, this.width, this.height);
+        this.upgradeTab2 = new upgrade_tab((this.width/2) + 25,50, this.width, this.height);
+     
 
+        this.isPaused = false;
         this.isLevelUp = false;
 
         this.leaves = [];
@@ -62,6 +64,7 @@ export default class game_scene extends scene {
     
     update(){
         this.init();
+        if(this.isPaused){return;};
         this.player.update();
         this.healthBar.x = this.player.x - (this.healthBar.width - this.player.width)/2;
       
@@ -146,6 +149,7 @@ export default class game_scene extends scene {
         this.drawText('center','middle','bold', '25', 'arial','Level: ' + this.playerLevel, this.width/2, 120);
 
         if(this.isLevelUp){
+            this.pauseGame();
             this.buttons.forEach(button=>{
                 button.isActive = true;
                 button.draw(this.context);
@@ -159,16 +163,19 @@ export default class game_scene extends scene {
     }
 
     spawnBees(){
+        if(this.isPaused){return;};
         this.bee = new bee(this,-50,this.randomNumGen(48,(this.height - 96)),Math.round(this.randomNumGen(0,1)));
         this.bees.push(this.bee);
     }
     
     spawnProjectiles(){
+        if(this.isPaused){return;};
         this.projectile = new leaf(this, this.randomNumGen(0,this.width - 20),-50, Math.round(this.randomNumGen(0,5)));
         this.leaves.push(this.projectile);
     } 
 
     spawnFrogs(){
+        if(this.isPaused){return;};
         this.frog = new frog(this, -50, Math.round(this.randomNumGen(0,1)),this.randomNumGen(0,(this.width/2)), this.randomNumGen(1,3.5));
         this.frogs.push(this.frog);
     }
@@ -213,6 +220,13 @@ export default class game_scene extends scene {
             this.currSceneIndex[0] = 2;
             this.hasReset = false;
         }
+    }
+    pauseGame(){
+        if(!this.isPaused){
+            this.input.pauseInput();
+            this.isPaused = true;
+        }
+        
     }
     resetGame(){
         this.health = 30;
