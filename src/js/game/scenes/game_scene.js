@@ -6,7 +6,7 @@ import smoke from "../game_objects/smoke.js";
 import scene from "./scene.js";
 import progress_bar from "../user_interface/progress_bar.js";
 import upgrade_tab from "../user_interface/upgrade_tab.js";
-
+import upgrade from "../upgrade.js";
 export default class game_scene extends scene {
     constructor(width, height, context, input, currSceneIndex){
         super(width, height, context, input);
@@ -23,8 +23,14 @@ export default class game_scene extends scene {
         this.expPerLevelMod = 1.5;
         this.expBar = new progress_bar(0,0, this.width,10,"#0000FF","#344e41",this.expForLevel, true);
 
-        this.upgradeTab1 = new upgrade_tab(75,50, this.width, this.height);
-        this.upgradeTab2 = new upgrade_tab((this.width/2) + 25,50, this.width, this.height);
+        this.fireRateUpgrade = new upgrade("FIRE RATE", "Doubles the rate in which the butterfly shoots!");
+        this.damageUpgrade = new upgrade("DAMAGE", "Doubles the butterfly's damage!");
+        this.bulletUpgrade = new upgrade("BULLET", "Doubles the size of the butterfly's bullets!");
+        this.butterflyUpgrade = new upgrade("BUTTERFLY", "Halves the size of the butterfly!");
+        this.upgrades = [this.fireRateUpgrade, this.damageUpgrade, this.bulletUpgrade, this.butterflyUpgrade];
+
+        this.upgradeTab1 = new upgrade_tab(75,50, this.width, this.height, this.upgrades[0].headingText, this);
+        this.upgradeTab2 = new upgrade_tab((this.width/2) + 25,50, this.width, this.height, this.upgrades[0].headingText, this);
      
 
         this.isPaused = false;
@@ -180,6 +186,10 @@ export default class game_scene extends scene {
         this.frogs.push(this.frog);
     }
 
+    chooseUpgrade(){
+
+    }
+
     randomNumGen(min,max){
         let ranNum = (Math.random() * (max - min)) + min;
         return ranNum;
@@ -226,7 +236,13 @@ export default class game_scene extends scene {
             this.input.pauseInput();
             this.isPaused = true;
         }
-        
+    }
+    unpauseGame(){
+        if(this.isPaused){
+            console.log("unpause Game");
+            this.input.unpauseInput();
+            this.isPaused = false;
+        }
     }
     resetGame(){
         this.health = 30;

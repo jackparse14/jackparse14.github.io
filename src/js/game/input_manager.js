@@ -5,8 +5,6 @@ export default class input_manager{
         this.clickCoord = [];
         this.mouseXCoord = null;
         this.mouseYCoord = null;
-
-        this.clickTimer = null;
         
         
             window.addEventListener('keydown', e => {
@@ -24,25 +22,28 @@ export default class input_manager{
             })
             canvas.addEventListener('mousedown', e => {
                 //if(!this.isActive){return;};
-                console.log("mousedown");
                 this.clickCoord.push(e.pageX - (canvas.clientLeft + canvas.offsetLeft));
                 this.clickCoord.push(e.pageY - (canvas.clientTop + canvas.offsetTop));
             })
             canvas.addEventListener('mouseup', e => {
                 //if(!this.isActive){return;};
-                clearInterval(this.clickTimer);
                 this.clearClickCoord();
             })
             canvas.addEventListener("mousemove", e =>{
                 if(!this.isActive){return;};
-
+                
                 this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
                 this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
             })
         
     }   
     pauseInput(){ 
+        console.log("pause input");
         this.isActive = false;
+    }
+    unpauseInput(){
+        console.log("unpause input");
+        this.isActive = true;
     }
     startInput(){
         this.isActive = true;

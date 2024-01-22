@@ -1,7 +1,8 @@
 import button from "./button.js";
 export default class upgrade_tab extends button{
-    constructor(x,y, canvasWidth, canvasHeight){ 
-        super(x,y, "UPGRADE");
+    constructor(x,y, canvasWidth, canvasHeight, upgrade, game){ 
+        super(x,y, upgrade);
+        this.game = game;
         this.textColor = "#0000FF"
         this.fillColor = "#dad7cd";
         
@@ -12,6 +13,7 @@ export default class upgrade_tab extends button{
         
     }
     handleClick(){
-        console.log("click upgrade");
+        this.game.isLevelUp = false;
+        this.game.unpauseGame();
     }
 }
