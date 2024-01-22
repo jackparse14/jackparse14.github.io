@@ -5,7 +5,7 @@ import player from "../game_objects/player.js";
 import smoke from "../game_objects/smoke.js";
 import scene from "./scene.js";
 import progress_bar from "../user_interface/progress_bar.js";
-import upgrade_tab from "../upgrade_tab.js";
+import upgrade_tab from "../user_interface/upgrade_tab.js";
 
 export default class game_scene extends scene {
     constructor(width, height, context, input, currSceneIndex){

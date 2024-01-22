@@ -1,4 +1,4 @@
-import navButton from "../nav_button.js";
+import navButton from "../user_interface/nav_button.js";
 import scene from "./scene.js";
 
 export default class lose_scene extends scene{

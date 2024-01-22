@@ -1,5 +1,5 @@
 import scene from "./scene.js";
-import navButton from "../nav_button.js";
+import navButton from "../user_interface/nav_button.js";
 
 export default class menu_scene extends scene{
     constructor(width, height, context, input, currSceneIndex){

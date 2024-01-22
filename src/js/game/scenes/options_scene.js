@@ -1,5 +1,5 @@
-import navButton from "../nav_button.js";
-import volumeButton from "../volume_button.js";
+import navButton from "../user_interface/nav_button.js";
+import volumeButton from "../user_interface/volume_button.js";
 import scene from "./scene.js";
 
 export default class options_scene extends scene{
