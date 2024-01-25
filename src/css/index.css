@@ -14,6 +14,29 @@
     justify-content: right;
     border-bottom: 3px solid rgb(52, 78, 65);
 }
+.btn{
+    background-color: rgb(218, 215, 205);
+    border-color: black;
+    border:5px solid rgb(52, 78, 65);
+    width:40px;
+    height:25%;
+    display: flex;
+}
+.btn:hover{
+    background-color: white;
+}
+.btn > h2{
+    text-align: center;
+    margin: auto;
+}
+.btn-left{
+    border-radius: 20px 0px 0px 20px;
+    border-right:none;
+}
+.btn-right{
+    border-radius: 0px 20px 20px 0px;
+    border-left:none;
+}
 #navbar > a{
     height:100%;
     width:150px;
@@ -32,25 +55,38 @@
     background-color: white;
 }
 #game,#projects,#about{
+    z-index: -1;
+    position: absolute;
     height:95vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    left:0;
+    right:0;
+    width: 100%;
+}
+#about-back, #projects-back, #game-back{
+    width:80%;
     border-left: 5px solid rgb(52, 78, 65);
     border-right: 5px solid rgb(52, 78, 65);
+    height: 100%;
+    padding-top: 7vh;
 }
-#game{
+#game-back{
     background-color: rgb(58, 90, 64);
 }
-#projects{
+#projects-back{
     background-color: rgb(88, 129, 87);
 }
-#about{
-    background-color: rgb(163, 177, 138);
-    border-radius: 20px 20px 0px 0px;
-    border-top: 5px solid rgb(52, 78, 65);
-    
+#about-back{
+    background-color: rgb(163, 177, 138);    
 }
 #intro{
+    position: absolute;
     height:100vh;
-    width:60%;
+    width: 60%;
+    left:0;
+    right:0;
     color:rgb(52, 78, 65);
     margin:auto;
     display:flex;
@@ -95,11 +131,12 @@
     margin-top: 40px;
 }
 #container{
+    position: relative;
     width:80%;
     margin:auto;
     display: flex;
     flex-direction: column;
-    
+    background-color: aqua;
 }
 .img-selfie{
     width:100%;
@@ -115,15 +152,17 @@ section{
 footer{
     background-color: rgb(218, 215, 205);
     width:100%;
-    height:5%;
+    height:4%;
     bottom:0px;
     display:flex;
     align-items: center;
     justify-content: center;
     border-top: 5px solid rgb(52, 78, 65);
     padding-top: 5px;
+    position: fixed;
 }
 body{
+    overflow: hidden;
     height:100%;
     width:100%;
     margin:0%;
@@ -158,6 +197,7 @@ h2{
     font-size: 40px;
     font-family: "pacifico";
     margin:0px;
+    color:rgb(88, 129, 87);
 }
 #game-header{
     color:rgb(163, 177, 138);
@@ -230,9 +270,6 @@ h2{
     color:rgb(52, 78, 65);
     margin:0px;
     align-self: start;
-}
-h2{
-    color:rgb(88, 129, 87);
 }
 p{
     font-family: "Pacifico";
