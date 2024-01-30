@@ -12,6 +12,12 @@ window.onload = function(){
         background.style.filter = "blur(" + this.value + "px)";
     }
 
+    slider.addEventListener("input", (event) => {
+        const tempSliderValue = event.target.value; 
+        const progress = (tempSliderValue / slider.max) * 100;
+        slider.style.background = `linear-gradient(to right, rgb(52, 78, 65) ${progress}%, rgb(88, 129, 87) ${progress}%)`;
+    })
+
     for(let i = 0;i < backgroundBtns.length;i++){
         backgroundBtns[i].onclick = function(){
             switch(i){

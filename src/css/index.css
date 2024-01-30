@@ -16,7 +16,6 @@
 }
 .btn{
     background-color: rgb(218, 215, 205);
-    border-color: black;
     border:5px solid rgb(52, 78, 65);
     width:40px;
     height:25%;
@@ -81,6 +80,16 @@ section{
 }
 #game-back{
     background-color: rgb(58, 90, 64);
+    text-align: center;
+}
+#game-back > a:hover{
+    color: rgb(218, 215, 205);
+}
+#game-back > a{
+    text-decoration: none;
+    font-size: 50px;
+    font-family: "agbalumo";
+    color: rgb(163, 177, 138);
 }
 #projects-back{
     background-color: rgb(88, 129, 87);
@@ -140,7 +149,6 @@ section{
     margin:auto;
     display: flex;
     flex-direction: column;
-    background-color: aqua;
 }
 .img-selfie{
     width:100%;
@@ -177,7 +185,7 @@ body{
     height:45px;
 }
 #bg-image{
-    background-image: url("/src/assets/index/background-3.jpg");
+    background-image: url("/src/assets/index/background-1.jpg");
     background-size: cover;
     filter: blur(3px);
     transform: scale(1.01);
@@ -187,11 +195,52 @@ body{
     height: 100%;
 }
 #background-blurrer{
-    background-color: aqua;
     width:50%;
     display:flex;
-    
+    justify-content: center;
 }
+#slider-container{
+    margin-right: 5px;
+    height:auto;
+    width:300px;
+    background-color: rgb(218, 215, 205);
+    border:5px solid rgb(52, 78, 65);
+    border-radius: 20px 20px 0px 0px;
+    border-bottom: none;
+    text-align: center;
+    padding-top: 10px;
+}
+  
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none; 
+    height: 15px;
+    width: 15px;
+    background-color: rgb(52, 78, 65);
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+}
+  
+#slider::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(52, 78, 65);
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+}
+#slider{
+    -webkit-appearance: none;
+    appearance: none;
+    width:90%;
+    height:10px;
+    background: linear-gradient(to right, rgb(52, 78, 65) 60%, rgb(88, 129, 87) 60%);
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+}
+
 #background-swapper{
     justify-content: center;
     width:50%;
@@ -208,6 +257,7 @@ body{
     text-decoration: none;
     color: rgb(52, 78, 65);
     font-size: 25px;
+    
 }
 html{
     scroll-padding-top: 5%;
