@@ -54,7 +54,7 @@
 #navbar > a:hover{
     background-color: white;
 }
-#game,#projects,#about{
+section{
     z-index: -1;
     position: absolute;
     height:95vh;
@@ -64,6 +64,9 @@
     left:0;
     right:0;
     width: 100%;
+}
+#intro{
+    display: flex;
 }
 #about-back, #projects-back, #game-back{
     width:80%;
@@ -81,17 +84,12 @@
 #about-back{
     background-color: rgb(163, 177, 138);    
 }
-#intro{
-    position: absolute;
-    height:100vh;
-    width: 60%;
+#video{
+    width:50%;
+    display:flex;
     left:0;
     right:0;
-    color:rgb(52, 78, 65);
-    margin:auto;
-    display:flex;
-    justify-content: center;
-    align-items: center;
+    text-align:center;
 }
 #intro-back{
     background:linear-gradient(
@@ -104,7 +102,7 @@
     display:grid;
     grid-template-columns: 30% 70%;
     align-items: center;
-    width:100%;
+    width:60%;
 }
 .grid-obj-1{
     display:flex;

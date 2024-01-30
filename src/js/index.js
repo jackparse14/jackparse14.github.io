@@ -7,42 +7,38 @@ window.onload = function(){
     
     for(let i = 0;i < navBarBtns.length;i++){
         navBarBtns[i].onclick = function(){
+            if(i != sectionIndex){
+                disableInput();
+                sections[i].style.left = 4000 + "px";
+                moveSection("left", i);
+            }
             
-            sections[sectionIndex].style.display = "none";
-            sectionIndex = i;
-            sections[sectionIndex].style.display = "flex";
         }
     }
 
     for(let i = 0;i < navLeftBtns.length;i++){
         navLeftBtns[i].onclick = function(){
-            document.body.style.pointerEvents = "none";
-            moveSection("left");
+            disableInput();
+            nextSectionIndex = spawnNextSection();
+            sections[nextSectionIndex].style.left = 4000 + "px";
+            moveSection("left", nextSectionIndex);
         }
     }
     
     for(let i = 0;i < navRightBtns.length;i++){
         navRightBtns[i].onclick = function(){
-            document.body.style.pointerEvents = "none";
-            moveSection("right");
+            disableInput();
+            nextSectionIndex = spawnPrevSection();
+            sections[nextSectionIndex].style.left = -4000 + "px";
+            moveSection("right", nextSectionIndex);
         }
     }
 
-    function moveSection(direction){
+    function moveSection(direction, nextSectionIndex){
         let id = null;
         const originalLeftPos = sections[sectionIndex].style.left;
         const originalRightPos = sections[sectionIndex].style.right;
 
-        var nextSectionIndex = null;
-        if(direction == "left"){
-            nextSectionIndex = spawnNextSection();
-            sections[nextSectionIndex].style.left = 4000 + "px";
-            
-        } else if (direction == "right"){
-            nextSectionIndex = spawnPrevSection();
-            sections[nextSectionIndex].style.left = -4000 + "px";
-        };
-        
         
         sections[nextSectionIndex].style.display = "flex";
         
@@ -53,13 +49,13 @@ window.onload = function(){
         function frame(){
                 if(pos == 3000){
                     sections[sectionIndex].style.display = "none";
+                    
+                    
                     sections[sectionIndex].style.left = originalLeftPos;
                     sections[sectionIndex].style.right = originalRightPos;
-                    
-                    
 
                     sectionIndex = nextSectionIndex;
-                    document.body.style.pointerEvents = "auto";
+                    enableInput();
                     clearInterval(id);
                 }else{
                     pos += 10;
@@ -84,6 +80,12 @@ window.onload = function(){
                 
                 
         }
+    }
+    function enableInput(){
+        document.body.style.pointerEvents = "auto";
+    }
+    function disableInput(){
+        document.body.style.pointerEvents = "none";
     }
     function spawnPrevSection(){
         if(sectionIndex == sections.length - 1){
