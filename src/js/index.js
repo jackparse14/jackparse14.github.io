@@ -3,8 +3,38 @@ window.onload = function(){
     var navBarBtns = document.getElementById("navbar").getElementsByTagName("a");
     var navLeftBtns = document.getElementsByClassName("btn-left");
     var navRightBtns = document.getElementsByClassName("btn-right");
+    var backgroundBtns = document.getElementById("background-swapper").getElementsByTagName("a");
+    var background = document.getElementById("bg-image");
+    var slider = document.getElementById("slider");
     var sectionIndex = 0;
-    
+
+    slider.oninput = function() {
+        background.style.filter = "blur(" + this.value + "px)";
+    }
+
+    for(let i = 0;i < backgroundBtns.length;i++){
+        backgroundBtns[i].onclick = function(){
+            switch(i){
+                case 0:
+                    background.style.backgroundImage = "url('/src/assets/index/background-1.jpg')";
+                    break;
+                case 1:
+                    background.style.backgroundImage = "url('/src/assets/index/background-2.jpg')"
+                    break;
+                case 2:
+                    background.style.backgroundImage = "url('/src/assets/index/background-3.jpg')"
+                    break;
+                case 3:
+                    background.style.backgroundImage = "url('/src/assets/index/background-4.jpg')"
+                    break;
+                case 4:
+                    background.style.backgroundImage = "url('/src/assets/index/background-5.jpg')"
+                    break;
+            }
+            
+        }
+    }
+
     for(let i = 0;i < navBarBtns.length;i++){
         navBarBtns[i].onclick = function(){
             if(i != sectionIndex){

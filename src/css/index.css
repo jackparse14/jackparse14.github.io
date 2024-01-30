@@ -65,8 +65,12 @@ section{
     right:0;
     width: 100%;
 }
+
 #intro{
     display: flex;
+}
+.intro-main{
+    width:60%;
 }
 #about-back, #projects-back, #game-back{
     width:80%;
@@ -86,9 +90,12 @@ section{
 }
 #video{
     width:50%;
-    display:flex;
-    left:0;
-    right:0;
+    display:block;
+    border: 5px solid rgb(163, 177, 138);
+    padding: 5px;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 50px;
     text-align:center;
 }
 #intro-back{
@@ -102,7 +109,6 @@ section{
     display:grid;
     grid-template-columns: 30% 70%;
     align-items: center;
-    width:60%;
 }
 .grid-obj-1{
     display:flex;
@@ -165,17 +171,43 @@ body{
     width:100%;
     margin:0%;
 }
-.bg-image{
-    background-image: url("/src/assets/index/background.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-    background-attachment: fixed;
+#background-adjusters{
+    flex-direction: row;
+    display: flex;
+    height:45px;
+}
+#bg-image{
+    background-image: url("/src/assets/index/background-3.jpg");
+    background-size: cover;
     filter: blur(3px);
-    transform: scale(1.1);
+    transform: scale(1.01);
     position: fixed;
     z-index: -1;
     width:100%;
     height: 100%;
+}
+#background-blurrer{
+    background-color: aqua;
+    width:50%;
+    display:flex;
+    
+}
+#background-swapper{
+    justify-content: center;
+    width:50%;
+    display: flex;
+}
+#background-swapper > a{
+    height: auto;
+    width:50px;
+    margin-left:5px;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    justify-content: center;
+    font-family: "agbalumo";
+    text-decoration: none;
+    color: rgb(52, 78, 65);
+    font-size: 25px;
 }
 html{
     scroll-padding-top: 5%;
@@ -189,6 +221,7 @@ html{
 h1{
     text-align: center;
     margin:0%;
+    margin-top: 50px;
     color:rgb(52, 78, 65);
 }
 h2{
