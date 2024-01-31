@@ -6,7 +6,61 @@ window.onload = function(){
     var backgroundBtns = document.getElementById("background-swapper").getElementsByTagName("a");
     var background = document.getElementById("bg-image");
     var slider = document.getElementById("slider");
+    var accordionBtns = document.getElementsByClassName("accordion-btn");
+    var accordionInfos = document.getElementsByClassName("accordion-info");
     var sectionIndex = 0;
+    var accordionIndex = -1;
+
+    for(let i = 0; i < accordionBtns.length;i++){
+        accordionBtns[i].onclick = function(){
+            
+            for(let j =0; j < accordionBtns.length; j++){
+                if(i!=j){
+                    accordionBtns[j].style.width = "16.66%";
+                    accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)";
+                    
+                    fadeOut(accordionInfos[j]);
+                } else{
+                    this.style.width ="50%";
+                    this.style.backgroundColor = "#FFFFFF";
+                    fadeIn(accordionInfos[i]);
+                }
+            }
+        }
+    }
+    function fadeIn(element){
+        let id = null;
+        clearInterval(id);
+        id = setInterval(frame, 5);
+        element.style.display = "block";
+        element.style.opacity = 0;
+        function frame(){
+            if(element.style.opacity < 1){
+                element.style.opacity = parseFloat(element.style.opacity) + 0.01;
+            } else {
+                
+                clearInterval(id);
+            }
+        }
+    }
+
+    function fadeOut(element){
+        disableInput();
+        let id = null;
+        clearInterval(id);
+        id = setInterval(frame,5);
+        element.style.opacity = 1;
+        function frame(){
+            if(element.style.opacity > 0){
+                element.style.opacity = parseFloat(element.style.opacity) - 0.01;
+            } else {
+                element.style.display = "none";
+                clearInterval(id);
+                enableInput();
+            }
+        }
+    }
+
 
     slider.oninput = function() {
         background.style.filter = "blur(" + this.value + "px)";
