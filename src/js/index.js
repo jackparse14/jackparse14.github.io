@@ -8,22 +8,44 @@ window.onload = function(){
     var slider = document.getElementById("slider");
     var accordionBtns = document.getElementsByClassName("accordion-btn");
     var accordionInfos = document.getElementsByClassName("accordion-info");
+    var galleryProjects = document.getElementById("gallery").getElementsByClassName("project");
+    var galleryDesc = document.getElementById("gallery").getElementsByClassName("desc");
+    var accordionIndex = 4;
     var sectionIndex = 0;
-    var accordionIndex = -1;
+    
+    for(let i = 0; i < galleryProjects.length;i++){
+        galleryProjects[i].addEventListener("mouseover", (event) => {
+            fadeIn(galleryDesc[i]);
+        });
+        galleryProjects[i].addEventListener("mouseout",(event) => {
+            galleryDesc[i].style.display = "none";
+        });
+    }
 
     for(let i = 0; i < accordionBtns.length;i++){
         accordionBtns[i].onclick = function(){
-            
-            for(let j =0; j < accordionBtns.length; j++){
-                if(i!=j){
-                    accordionBtns[j].style.width = "16.66%";
-                    accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)";
-                    
+            if(accordionIndex == i){
+                for(let j = 0; j < accordionBtns.length; j++){
+                    accordionBtns[j].style.width = "25%";
+                    accordionIndex = 4;
                     fadeOut(accordionInfos[j]);
-                } else{
-                    this.style.width ="50%";
-                    this.style.backgroundColor = "#FFFFFF";
-                    fadeIn(accordionInfos[i]);
+                    accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)"
+                    fadeIn(accordionInfos[4]);
+                }
+            } else {
+                for(let j =0; j < accordionBtns.length; j++){
+                    if(i!=j){
+                        accordionBtns[j].style.width = "16.66%";
+                        accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)";
+                        
+                        fadeOut(accordionInfos[j]);
+                    } else{
+                        this.style.width ="50%";
+                        this.style.backgroundColor = "#FFFFFF";
+                        accordionIndex = i;
+                        fadeIn(accordionInfos[i]);
+                        fadeOut(accordionInfos[4]);
+                    }
                 }
             }
         }
