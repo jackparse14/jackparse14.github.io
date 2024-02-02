@@ -54,7 +54,7 @@ window.onload = function(){
         let id = null;
         clearInterval(id);
         id = setInterval(frame, 5);
-        element.style.display = "block";
+        element.style.display = "flex";
         element.style.opacity = 0;
         function frame(){
             if(element.style.opacity < 1){
