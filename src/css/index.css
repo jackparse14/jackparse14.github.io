@@ -210,13 +210,16 @@ section{
 }
 .accordion-info{
     position: absolute;
-    width: 1185px;
+    width: 70%;
     height: 65%;
     display: none;
     border:5px solid rgb(52, 78, 65);
     border-radius: 20px;
     margin-top: 10px;
-    
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 .accordion-text{
     margin: 10px 30px;
@@ -238,6 +241,7 @@ section{
 }
 #accordion-infos{
     margin:20px;
+    
 }
 .accordion-btn:first-child{
     border-left:none;
@@ -258,11 +262,13 @@ section{
         rgb(163, 177, 138)
         
     );
+    
     border-radius: 40px;
     border: 5px solid rgb(52, 78, 65);
     display:grid;
     grid-template-columns: 30% 70%;
     align-items: center;
+    grid-template-rows: 1fr min-content;
 }
 .grid-obj-1{
     display:flex;
@@ -274,9 +280,13 @@ section{
     margin-bottom: 70px;
 }
 .grid-obj-2{
-    display:flex;
+    display:block;
     grid-column:1;
     grid-row:2;
+    height: auto;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
 }
 .grid-obj-3{
     grid-column: 1/3;
@@ -301,6 +311,7 @@ section{
     border-radius: 0px 50px 0px 35px;
     border-right: 5px solid rgb(52, 78, 65);
     border-top: 5px solid rgb(52, 78, 65);
+    object-fit: cover;
 }
 
 section{
@@ -328,6 +339,7 @@ body{
     flex-direction: row;
     display: flex;
     height:45px;
+    
 }
 #bg-image{
     background-image: url("/src/assets/index/background-1.jpg");
@@ -345,9 +357,9 @@ body{
     justify-content: center;
 }
 #slider-container{
-    margin-right: 5px;
+    margin-right: 20px;
     height:auto;
-    width:300px;
+    width:70%;
     background-color: rgb(218, 215, 205);
     border:5px solid rgb(52, 78, 65);
     border-radius: 20px 20px 0px 0px;
@@ -390,10 +402,11 @@ body{
     justify-content: center;
     width:50%;
     display: flex;
+    margin-left: 15px;
 }
 #background-swapper > a{
     height: auto;
-    width:50px;
+    width: 10%;
     margin-left:5px;
     border-bottom: none;
     border-radius: 10px 10px 0px 0px;
@@ -448,6 +461,7 @@ h2{
 .codewars-icon{
     filter: invert(48%) sepia(9%) saturate(1707%) hue-rotate(70deg) brightness(93%) contrast(81%);
     display:flex;
+    width:3rem;
 }
 .codewars-icon-footer{
     filter: invert(27%) sepia(12%) saturate(989%) hue-rotate(97deg) brightness(90%) contrast(88%);
@@ -505,6 +519,12 @@ p{
     #navbar{
         height:35px !important;
     }
+    .accordion-btn{
+        font-size: 15px !important;
+    }
+    #accordion-btns{
+        height: 20px !important;
+    }
     footer{
         height:30px !important;
         
@@ -520,14 +540,24 @@ p{
         padding-left: 5% !important;
         font-size: 15px !important;
     }
+    video{
+        width:95% !important;
+    }
 }
-@media(max-width:420px){
+/*@media(max-width:420px){
     #navbar > a{
         font-size:15px !important;
     }
     
     #navbar{
         height:25px !important;
+    }
+    #accordion-btns{
+        background-color: aqua !important;
+    }
+    .accordion-btn{
+        color: aqua !important;
+        background-color: aqua !important;
     }
     footer{
         height:20px !important;
@@ -544,7 +574,7 @@ p{
         padding-left: 5% !important;
         font-size: 10px !important;
     }
-}
+}*/
 @media(max-width:850px){
     #container{
         width:100% !important;
@@ -593,8 +623,20 @@ p{
     }
 }
 @media(max-width:1270px){
-    #intro-heading, h1{
+    h1{
         font-size: 60px !important;
+    }
+    #intro-heading{
+        font-size: 50px !important;
+    }
+    .social-icons-intro{
+        font-size: 2rem !important;
+    }
+    .codewars-icon{
+        width: 2rem !important;
+    }
+    .accordion-text > h1{
+        font-size: 40px !important;
     }
     #gallery{
         height:50% !important;
@@ -604,5 +646,60 @@ p{
     }
     #game-back > a{
         font-size: 30px !important;
+    }
+}
+@media(max-width:1400px){
+    .accordion-text > h1{
+        font-size: 30px !important;
+    }
+    .accordion-text > p{
+        font-size: 13px !important;
+    }
+}
+@media(max-width:1120px){
+    .img-selfie2{
+        display: none !important;
+    }
+    #intro-heading{
+        font-size: 40px !important;
+    }
+    .intro-date{
+        font-size: 20px !important;
+        padding-top: 10px;
+    }
+    .intro-sub-heading{
+        font-size: 20px !important;
+    }
+}
+@media(max-width:1485px){
+    #intro-heading{
+        font-size: 50px;
+    }
+    .intro-sub-heading{
+        font-size: 30px;
+    }
+    .intro-date{
+        font-size: 25px;
+    }
+}
+@media(max-width:1720px){
+    #intro-heading{
+        font-size: 60px;
+    }
+}
+@media(max-width:500px){
+    .img-selfie{
+        display: none;
+    }
+    .grid-obj-1{
+        grid-column: 1/3;
+        grid-row:2;
+        margin-bottom: 70px;
+        margin-left:auto;
+        margin-right:auto;
+        padding: 0px;
+    }
+    .intro-sub-heading{
+        text-align: center;
     }
 }
