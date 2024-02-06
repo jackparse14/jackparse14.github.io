@@ -10,7 +10,6 @@ export default class upgrade_tab extends button{
         this.height = canvasHeight - 50 - y;
     }
     chooseUpgrade(){
-        
     }
     handleClick(){
         this.game.isLevelUp = false;

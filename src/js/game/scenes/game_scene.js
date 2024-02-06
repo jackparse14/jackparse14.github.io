@@ -5,8 +5,8 @@ import player from "../game_objects/player.js";
 import smoke from "../game_objects/smoke.js";
 import scene from "./scene.js";
 import progress_bar from "../user_interface/progress_bar.js";
-import upgrade_tab from "../user_interface/upgrade_tab.js";
-import upgrade from "../upgrade.js";
+
+import upgrade_manager from "../upgrade_manager.js";
 export default class game_scene extends scene {
     constructor(width, height, context, input, currSceneIndex){
         super(width, height, context, input);
@@ -23,14 +23,9 @@ export default class game_scene extends scene {
         this.expPerLevelMod = 1.5;
         this.expBar = new progress_bar(0,0, this.width,10,"#0000FF","#344e41",this.expForLevel, true);
 
-        this.fireRateUpgrade = new upgrade("FIRE RATE", "Doubles the rate in which the butterfly shoots!");
-        this.damageUpgrade = new upgrade("DAMAGE", "Doubles the butterfly's damage!");
-        this.bulletUpgrade = new upgrade("BULLET", "Doubles the size of the butterfly's bullets!");
-        this.butterflyUpgrade = new upgrade("BUTTERFLY", "Halves the size of the butterfly!");
-        this.upgrades = [this.fireRateUpgrade, this.damageUpgrade, this.bulletUpgrade, this.butterflyUpgrade];
+        this.upgradeManager = new upgrade_manager(this);
 
-        this.upgradeTab1 = new upgrade_tab(75,50, this.width, this.height, this.upgrades[0].headingText, this);
-        this.upgradeTab2 = new upgrade_tab((this.width/2) + 25,50, this.width, this.height, this.upgrades[0].headingText, this);
+        
      
 
         this.isPaused = false;
@@ -64,6 +59,7 @@ export default class game_scene extends scene {
             this.projectileTimer = setInterval(() => this.spawnProjectiles(), this.timeBetweenProjectileSpawn);
             this.beeTimer = setInterval(() => this.spawnBees(), this.timeBetweenBeeSpawn);
             this.frogTimer = setInterval(() => this.spawnFrogs(), this.timeBetweenFrogSpawn);
+
             this.hasInit = true;
         }
     }

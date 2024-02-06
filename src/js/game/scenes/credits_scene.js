@@ -22,7 +22,6 @@ export default class lose_scene extends scene{
         this.drawBackground('/src/assets/game/game_background.png');
         this.drawButtons();
         this.drawTitle('center','middle','','110','Plante','CREDITS', this.width/2, 120);
-        
         this.context.closePath();
     }
 };
