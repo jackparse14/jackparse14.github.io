@@ -38,11 +38,9 @@ export default class input_manager{
         
     }   
     pauseInput(){ 
-        console.log("pause input");
         this.isActive = false;
     }
     unpauseInput(){
-        console.log("unpause input");
         this.isActive = true;
     }
     startInput(){

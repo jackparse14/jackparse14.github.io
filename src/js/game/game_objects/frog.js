@@ -23,13 +23,16 @@ export default class frog extends animated_object{
         this.jumpModifier = 1;
         this.jumpInterval = null;
         this.canJump = false;
+        this.canJumpProgress = 0;
 
+        this.timeBetweenAnimChange = 5;
         this.hasInit = false;
     }
 
     init(){
         if(!this.hasInit){
-            setInterval(()=> this.changeAnimationFrame(),100);
+            
+            //setInterval(()=> this.changeAnimationFrame(),100);
             this.hasInit = true;
         }
     }
@@ -52,30 +55,45 @@ export default class frog extends animated_object{
     }
 
     update(){
-        this.init();
+
+        //this.init();
         this.move();
         this.checkPlayerCollision();
         this.checkOutOfBounds();
     }
 
     move(){ 
-        if(this.reversed == 0 && this.x <= this.maxX){
-            this.x += this.moveSpeed;
-        } else if (this.reversed == 1 && this.x >= this.maxX){
+        
+        if((this.reversed == 0 && this.x <= this.maxX) || (this.reversed == 1 && this.x >= this.maxX)){
+            this.animateWalk();
             this.x += this.moveSpeed;
         } else{
             if(!this.canJump){
                 this.currentFrame = 2;
-                this.jumpInterval = setInterval(() => this.changeCanJump(), 1000);
+                //this.jumpInterval = setInterval(() => this.changeCanJump(), 1000);
+                this.changeCanJump();
+                
             } else if(this.canJump){
                 this.jump();
             }
         }
     }
+    animateWalk(){
+        if(this.animProgress > this.timeBetweenAnimChange){
+            this.animProgress = 0;
+            this.changeAnimationFrame();
+        } else {
+            this.animProgress++;
+        }
+    }
 
     changeCanJump(){
-        this.canJump = true;
-        clearInterval(this.jumpInterval);
+        //clearInterval(this.jumpInterval);
+        if(this.canJumpProgress > 50){
+            this.canJump = true;
+        } else {
+            this.canJumpProgress++;
+        }
     }
     jump(){
         this.y -= this.jumpSpeed * this.jumpModifier;

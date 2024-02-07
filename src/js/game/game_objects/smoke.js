@@ -9,7 +9,20 @@ export default class smoke extends animated_object{
         this.destroySelf = false;
 
         this.hasInit = false;
-        this.smokeAnimationTimer = setInterval(()=> this.changeAnimationFrame(), 50);
+        //this.smokeAnimationTimer = setInterval(()=> this.changeAnimationFrame(), 50);
+        this.timeBetweenAnimChange = 1;
+        
+    }
+    update(){
+        this.animate();
+    }
+    animate(){
+        if(this.animProgress > this.timeBetweenAnimChange){
+            this.animProgress = 0;
+            this.changeAnimationFrame();
+        } else {
+            this.animProgress++;
+        }
     }
     drawSelf(){
         this.drawFrame();

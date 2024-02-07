@@ -21,7 +21,7 @@ export default class bee extends animated_object{
 
         this.hasStateTimerStarted = false;
         this.timeBetweenAnimChange = 100;
-        this.animProgress = 0;
+        
         this.moveTimer = null;
         this.moveStraight = false;
     }

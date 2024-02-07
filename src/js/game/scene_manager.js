@@ -5,9 +5,6 @@ import OptionsScene from "./scenes/options_scene.js";
 import ControlsScene from "./scenes/controls_scene.js";
 import CreditsScene from "./scenes/credits_scene.js";
 
-var pg = 0;
-var pog = 120;
-
 export default class scene_manager{
     constructor(canvasWidth, canvasHeight, context, input, audio, canvas){
         this.input = input;
@@ -32,11 +29,7 @@ export default class scene_manager{
     }
 
     updateScene(){
-        if(pg > pog){
-            console.log("HIT");
-        } else{
-            pg++;
-        }
+
         if(this.currSceneIndex == 1 && !this.scenes[this.currSceneIndex].hasReset){
             this.scenes[this.currSceneIndex].resetGame();
         } else if (this.currSceneIndex == 2){

@@ -37,7 +37,6 @@ export default class upgrade_manager{
         }
     }
     handleUpgradeClick(){
-        console.log(this.upgradeIndex);
         switch(this.upgradeIndex){
             case 0:
                 this.handleFireRateUpgrade();

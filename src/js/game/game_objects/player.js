@@ -21,16 +21,20 @@ export default class Player extends animatedObject{
 
         this.hasInit = false;
 
+        this.timeBetweenAnimChange = 2;
+
         this.canBulletSpawn = true;
-        this.timeBetweenBulletSpawn = 1000;
+        this.timeBetweenBulletSpawn = 40;
+        this.bulletSpawnProgress = 0;
+
         this.playerBullets = [];
     }
 
     init(){
-        if(!this.hasInit){
+        /*if(!this.hasInit){
             setInterval(()=> this.changeAnimationFrame(),100);
             this.hasInit = true; 
-        }
+        }*/
     }
 
     startDamagedTimer(){
@@ -71,19 +75,32 @@ export default class Player extends animatedObject{
         }
         this.game.context.restore();
     }
-
+    animate(){
+        if(this.animProgress > this.timeBetweenAnimChange){
+            this.animProgress = 0;
+            this.changeAnimationFrame();
+        } else {
+            this.animProgress++;
+        }
+    }
     update(){
-        this.init();
+        //this.init();
+        this.animate();
         this.updateRotatationAngle();
-        this.startSpawningBullets();
+        //this.startSpawningBullets();
         this.updateXAxisMovement();
         this.updateYAxisMovement();
         if(this.canBulletSpawn && this.game.input.clickCoord.length != 0){
-            
             this.spawnPlayerBullet();
-            clearInterval(this.bulletSpawnTimer);
-            this.bulletSpawnTimer = setInterval(() => this.setCanBulletSpawn(), this.timeBetweenBulletSpawn);
+            
+            //clearInterval(this.bulletSpawnTimer);
+            //this.bulletSpawnTimer = setInterval(() => this.setCanBulletSpawn(), this.timeBetweenBulletSpawn);
+            
         }
+        if(this.canBulletSpawn == false){
+            this.startSpawningBullets();
+        }
+
         for(let i = 0;i < this.playerBullets.length;i++){
             this.playerBullets[i].update();
             if(this.playerBullets[i].hasHitEnemy || this.playerBullets[i].isOutOfBounds){
@@ -102,10 +119,16 @@ export default class Player extends animatedObject{
     }
 
     startSpawningBullets(){
-        if(!this.hasInit){
+        /*if(!this.hasInit){
             this.bulletSpawnTimer = setInterval(() => this.setCanBulletSpawn(), this.timeBetweenBulletSpawn);
             this.hasInit = true;
-        }
+        }*/
+            if(this.bulletSpawnProgress > this.timeBetweenBulletSpawn){
+                this.bulletSpawnProgress = 0;
+                this.setCanBulletSpawn();
+            } else {
+                this.bulletSpawnProgress++;
+            }
     }
     setCanBulletSpawn(){
         if(this.canBulletSpawn == false){

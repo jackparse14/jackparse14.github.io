@@ -37,9 +37,15 @@ export default class game_scene extends scene {
         
         this.smokes = [];
 
-        this.timeBetweenProjectileSpawn = 1000;
-        this.timeBetweenBeeSpawn = 2000;
-        this.timeBetweenFrogSpawn = 2000;
+        this.timeBetweenProjectileSpawn = 50;
+        this.projectileSpawnProgress = 0;
+
+        this.timeBetweenBeeSpawn = 100;
+        this.beeSpawnProgress = 0;
+
+        this.timeBetweenFrogSpawn = 100;
+        this.frogSpawnProgress = 0;
+
         this.hasInit = false;
 
         this.hasReset = false;
@@ -51,23 +57,37 @@ export default class game_scene extends scene {
 
         this.playerLevel = 0;
     }
-    init(){
-        if(!this.hasInit){
-            this.projectileTimer = setInterval(() => this.spawnProjectiles(), this.timeBetweenProjectileSpawn);
-            this.beeTimer = setInterval(() => this.spawnBees(), this.timeBetweenBeeSpawn);
-            this.frogTimer = setInterval(() => this.spawnFrogs(), this.timeBetweenFrogSpawn);
+    startSpawningEnemies(){
+        if(this.projectileSpawnProgress > this.timeBetweenProjectileSpawn){
+            this.projectileSpawnProgress = 0;
+            this.spawnProjectiles();
+        } else {
+            this.projectileSpawnProgress++;
+        }
 
-            this.hasInit = true;
+        if(this.beeSpawnProgress > this.timeBetweenBeeSpawn){
+            this.beeSpawnProgress = 0;
+            this.spawnBees();
+        } else {
+            this.beeSpawnProgress++;
+        }
+
+        if(this.frogSpawnProgress > this.timeBetweenFrogSpawn){
+            this.frogSpawnProgress = 0;
+            this.spawnFrogs();
+        } else {
+            this.frogSpawnProgress++;
         }
     }
     update(){
-        this.init();
         if(this.isPaused){return;};
+        this.startSpawningEnemies();
         this.player.update();
         this.healthBar.x = this.player.x - (this.healthBar.width - this.player.width)/2;
       
         this.healthBar.y = this.player.y + this.player.height + 10;
         for(let i = 0; i < this.smokes.length; i++){
+            this.smokes[i].update();
             if(this.smokes[i].destroySelf){
                 this.smokes.splice(i,1);
             }
@@ -149,7 +169,6 @@ export default class game_scene extends scene {
         if(this.isLevelUp){
             this.pauseGame();
             this.upgradeManager.buttons.forEach(button=>{
-                console.log("1");
                 button.isActive = true;
                 button.draw(this.context);
             });
@@ -219,7 +238,6 @@ export default class game_scene extends scene {
         this.healthBar.reduceFill(1);
         this.health -= 1;
         if(this.health <= 0){
-            console.log("dead - change scene");
             this.currSceneIndex[0] = 2;
             this.hasReset = false;
         }
@@ -232,7 +250,6 @@ export default class game_scene extends scene {
     }
     unpauseGame(){
         if(this.isPaused){
-            console.log("unpause Game");
             this.input.unpauseInput();
             this.isPaused = false;
         }
@@ -243,8 +260,6 @@ export default class game_scene extends scene {
         this.expBar.resetBar();
         this.score = 0;
         this.player.resetPlayer();
-        clearInterval(this.projectileTimer);
-        clearInterval(this.beeTimer);
         this.leaves = [];
         this.bees = [];
         this.player.playerBullets = [];
