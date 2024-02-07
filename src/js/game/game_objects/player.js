@@ -8,7 +8,7 @@ export default class Player extends animatedObject{
         
         this.currYSpeed = 0;
         this.currXSpeed = 0;
-        this.maxSpeed = 1;
+        this.maxSpeed = 3;
 
         this.angleToRotate = 0;
 
@@ -28,13 +28,6 @@ export default class Player extends animatedObject{
         this.bulletSpawnProgress = 0;
 
         this.playerBullets = [];
-    }
-
-    init(){
-        /*if(!this.hasInit){
-            setInterval(()=> this.changeAnimationFrame(),100);
-            this.hasInit = true; 
-        }*/
     }
 
     startDamagedTimer(){
@@ -57,8 +50,8 @@ export default class Player extends animatedObject{
 
     drawSelf(){
           //HITBOX DISPLAY
-        this.game.context.strokeStyle = "White";
-        this.game.context.strokeRect(this.x,this.y,this.width,this.height);
+        //this.game.context.strokeStyle = "White";
+        //this.game.context.strokeRect(this.x,this.y,this.width,this.height);
 
         this.rotate();
         this.playerBullets.forEach(bullet =>{
@@ -84,18 +77,12 @@ export default class Player extends animatedObject{
         }
     }
     update(){
-        //this.init();
         this.animate();
         this.updateRotatationAngle();
-        //this.startSpawningBullets();
         this.updateXAxisMovement();
         this.updateYAxisMovement();
         if(this.canBulletSpawn && this.game.input.clickCoord.length != 0){
             this.spawnPlayerBullet();
-            
-            //clearInterval(this.bulletSpawnTimer);
-            //this.bulletSpawnTimer = setInterval(() => this.setCanBulletSpawn(), this.timeBetweenBulletSpawn);
-            
         }
         if(this.canBulletSpawn == false){
             this.startSpawningBullets();
@@ -119,10 +106,6 @@ export default class Player extends animatedObject{
     }
 
     startSpawningBullets(){
-        /*if(!this.hasInit){
-            this.bulletSpawnTimer = setInterval(() => this.setCanBulletSpawn(), this.timeBetweenBulletSpawn);
-            this.hasInit = true;
-        }*/
             if(this.bulletSpawnProgress > this.timeBetweenBulletSpawn){
                 this.bulletSpawnProgress = 0;
                 this.setCanBulletSpawn();

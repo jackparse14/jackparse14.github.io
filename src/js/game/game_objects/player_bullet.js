@@ -11,7 +11,7 @@ export default class player_bullet extends game_object{
 
         this.sprite.src = "/src/assets/game/bullet.png";
 
-        this.moveSpeed = 2;
+        this.moveSpeed = 6;
 
         this.hasInit = false;
     }

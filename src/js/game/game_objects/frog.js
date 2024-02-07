@@ -29,14 +29,6 @@ export default class frog extends animated_object{
         this.hasInit = false;
     }
 
-    init(){
-        if(!this.hasInit){
-            
-            //setInterval(()=> this.changeAnimationFrame(),100);
-            this.hasInit = true;
-        }
-    }
-
     drawSelf(){
         /* HIT BOX OUTLINE
         this.game.context.beginPath();
@@ -55,8 +47,6 @@ export default class frog extends animated_object{
     }
 
     update(){
-
-        //this.init();
         this.move();
         this.checkPlayerCollision();
         this.checkOutOfBounds();
@@ -70,7 +60,6 @@ export default class frog extends animated_object{
         } else{
             if(!this.canJump){
                 this.currentFrame = 2;
-                //this.jumpInterval = setInterval(() => this.changeCanJump(), 1000);
                 this.changeCanJump();
                 
             } else if(this.canJump){
@@ -88,7 +77,6 @@ export default class frog extends animated_object{
     }
 
     changeCanJump(){
-        //clearInterval(this.jumpInterval);
         if(this.canJumpProgress > 50){
             this.canJump = true;
         } else {

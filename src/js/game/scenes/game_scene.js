@@ -15,8 +15,8 @@ export default class game_scene extends scene {
 
         //Instantiate GameObjects
         this.player = new player(60,48,this); 
-        this.health = 30;
-        this.healthBar = new progress_bar((this.width/2) - 50,60,this.player.width,10,"#FF0000", "#dad7cd", this.health, false);
+        this.health = 5;
+        this.healthBar = new progress_bar((this.width/1.5) - 50,60,this.player.width,5,"#FF0000", "#dad7cd", this.health, false);
 
         this.exp = 0;
         this.expForLevel = 30;
@@ -255,7 +255,7 @@ export default class game_scene extends scene {
         }
     }
     resetGame(){
-        this.health = 30;
+        this.health = 5;
         this.healthBar.resetBar();
         this.expBar.resetBar();
         this.score = 0;
