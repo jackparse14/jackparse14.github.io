@@ -20,7 +20,8 @@ export default class bee extends animated_object{
         this.yMovementState = "DOWN";
 
         this.hasStateTimerStarted = false;
-        
+        this.timeBetweenAnimChange = 100;
+        this.animProgress = 0;
         this.moveTimer = null;
         this.moveStraight = false;
     }
@@ -59,9 +60,16 @@ export default class bee extends animated_object{
                 break;
             case "STRAIGHT":
                 this.currentFrame = 0;
-                if(!this.hasStateTimerStarted){
+                /*if(!this.hasStateTimerStarted){
                     this.hasStateTimerStarted = true;
                     this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
+                    
+                }*/
+                if(this.animProgress > this.timeBetweenAnimChange){
+                    this.animProgress = 0;
+                    this.changeToUpOrDownState();
+                } else {
+                    this.animProgress++;
                 }
                 break;
         }
@@ -83,9 +91,9 @@ export default class bee extends animated_object{
     moveXDirection(){
         this.x += this.movespeed;
     }
-    moveStraightTimer(){
+    /*moveStraightTimer(){
         this.changeToUpOrDownState();
         this.hasStateTimerStarted = false;
         clearInterval(this.moveTimer);
-    }
+    }*/
 }
