@@ -25,7 +25,7 @@ export default class leaf extends game_object{
                 break;
         }
 
-        this.movespeed = 1;
+        this.movespeed = 3;
     }
     update(){
         this.move();

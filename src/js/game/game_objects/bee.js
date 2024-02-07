@@ -6,13 +6,14 @@ export default class bee extends animated_object{
 
         if(reversedInt == 0){
             this.sprite.src = "../assets/game/bee-reversed-sheet.png";
-            this.movespeed = 2;
+            this.movespeed = 6;
         } else {
             this.sprite.src = "../assets/game/bee-Sheet.png";
             this.x = x + game.width;
-            this.movespeed = -2;
+            this.movespeed = -6;
         }
 
+        this.yMoveSpeed = 3;
         this.maxY = y - 50;
         this.minY = y + 50;
 
@@ -20,7 +21,7 @@ export default class bee extends animated_object{
         this.yMovementState = "DOWN";
 
         this.hasStateTimerStarted = false;
-        this.timeBetweenAnimChange = 100;
+        this.timeBetweenAnimChange = 50;
         
         this.moveTimer = null;
         this.moveStraight = false;
@@ -46,25 +47,20 @@ export default class bee extends animated_object{
         switch(this.yMovementState){
             case "UP":
                 this.currentFrame = 1;
-                this.y -= 1;
+                this.y -= this.yMoveSpeed;
                 if(this.y <= this.maxY){
                     this.changeToStraightState();
                 }
                 break;
             case "DOWN":
                 this.currentFrame = 1;
-                this.y += 1;
+                this.y += this.yMoveSpeed;
                 if(this.y >= this.minY){
                     this.changeToStraightState();
                 }
                 break;
             case "STRAIGHT":
                 this.currentFrame = 0;
-                /*if(!this.hasStateTimerStarted){
-                    this.hasStateTimerStarted = true;
-                    this.moveTimer = setInterval(()=> this.moveStraightTimer(), 750);
-                    
-                }*/
                 if(this.animProgress > this.timeBetweenAnimChange){
                     this.animProgress = 0;
                     this.changeToUpOrDownState();
@@ -92,9 +88,4 @@ export default class bee extends animated_object{
     moveXDirection(){
         this.x += this.movespeed;
     }
-    /*moveStraightTimer(){
-        this.changeToUpOrDownState();
-        this.hasStateTimerStarted = false;
-        clearInterval(this.moveTimer);
-    }*/
 }

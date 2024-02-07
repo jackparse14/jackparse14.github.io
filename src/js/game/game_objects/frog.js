@@ -9,17 +9,17 @@ export default class frog extends animated_object{
 
         if(this.reversed == 0){
             this.sprite.src = "../assets/game/frog-sheet.png";
-            this.moveSpeed = 0.5;
+            this.moveSpeed = 1.5;
             this.maxX = maxX - this.width;
         } else {
             this.sprite.src = "../assets/game/frog-reversed-sheet.png";
-            this.moveSpeed = -0.5;
+            this.moveSpeed = -1.5;
             this.x = x + this.game.width;
             this.maxX = this.game.width - maxX;
         }
         
         this.jumpSpeed = jumpSpeed;
-        this.fallSpeed = 0.5;
+        this.fallSpeed = 1.5;
         this.jumpModifier = 1;
         this.jumpInterval = null;
         this.canJump = false;
