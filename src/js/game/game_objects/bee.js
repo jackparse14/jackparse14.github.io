@@ -71,6 +71,7 @@ export default class bee extends animated_object{
                 } else {
                     this.animProgress++;
                 }
+                
                 break;
         }
     }

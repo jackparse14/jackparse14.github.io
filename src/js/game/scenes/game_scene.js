@@ -60,7 +60,6 @@ export default class game_scene extends scene {
             this.hasInit = true;
         }
     }
-    
     update(){
         this.init();
         if(this.isPaused){return;};
