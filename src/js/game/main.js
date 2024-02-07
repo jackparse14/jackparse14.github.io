@@ -12,7 +12,7 @@ window.addEventListener('load', function(){
     
     ctx.imageSmoothingEnabled = false;
 
-    var targetFPS = 60;
+    var targetFPS = 30;
     var fpsInterval, startTime, lastTime, firstTime, elapsed;
     var frameCount = 0;
     
@@ -36,10 +36,6 @@ window.addEventListener('load', function(){
             ctx.clearRect(0,0, canvas.width,canvas.height);
             scene_manager.updateScene();
             scene_manager.drawScene();
-
-            var sinceStart = lastTime - startTime;
-            var currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
-            console.log("Elapsed time= " + Math.round(sinceStart / 1000 * 100) / 100 + " secs @ " + currentFps + " fps.");
         }
     };
 
