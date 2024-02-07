@@ -1,4 +1,4 @@
-import upgrade_tab from "../user_interface/upgrade_tab.js";
+import upgrade_tab from "../game/user_interface/upgrade_tab.js";
 export default class upgrade_manager{
     constructor(game){ 
         this.headingText = null;
@@ -7,8 +7,13 @@ export default class upgrade_manager{
 
         this.game = game;
         this.player = game.player;
-        this.upgradeTab1 = new upgrade_tab(75,50, this.width, this.height, this.upgradeManager.upgrades[0].headingText, this);
-        this.upgradeTab2 = new upgrade_tab((this.width/2) + 25,50, this.width, this.height, this.upgrades[0].headingText, this);
+        this.upgradeTab1 = new upgrade_tab(75,50, game.width, game.height, "N/A", game);
+        this.upgradeTab2 = new upgrade_tab((game.width/2) + 25,50, game.width, game.height, "N/A", game);   
+
+        this.buttons = [this.upgradeTab1,this.upgradeTab2];
+        this.buttons.forEach(button => {
+            button.isActive = false;
+        });
     }
     pickAnUpgrade(rand){
         this.upgradeIndex = rand;
@@ -31,9 +36,25 @@ export default class upgrade_manager{
                 break;
         }
     }
+    handleUpgradeClick(){
+        console.log(this.upgradeIndex);
+        switch(this.upgradeIndex){
+            case 0:
+                this.handleFireRateUpgrade();
+                break;
+            case 1:
+                this.handleDamageUpgrade();
+                break;
+            case 2:
+                this.handleBulletUpgrade();
+                break;
+            case 3:
+                this.handleButterflyUpgrade();
+                break;
+        }
+    }
     handleFireRateUpgrade(){
-        this.player.timeBetweenBulletSpawn /= 2;
-        console.log(this.player.timeBetweenBulletSpawn);
+        this.player.timeBetweenBulletSpawn /= 1.1;
         console.log("FIRE RATE");
     }
     handleDamageUpgrade(){

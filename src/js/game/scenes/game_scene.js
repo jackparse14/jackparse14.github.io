@@ -14,7 +14,7 @@ export default class game_scene extends scene {
         this.currSceneIndex = currSceneIndex;
 
         //Instantiate GameObjects
-        this.player = new player(60,48,this);
+        this.player = new player(60,48,this); 
         this.health = 30;
         this.healthBar = new progress_bar((this.width/2) - 50,60,this.player.width,10,"#FF0000", "#dad7cd", this.health, false);
 
@@ -24,9 +24,9 @@ export default class game_scene extends scene {
         this.expBar = new progress_bar(0,0, this.width,10,"#0000FF","#344e41",this.expForLevel, true);
 
         this.upgradeManager = new upgrade_manager(this);
-
+        this.upgradeManager.pickAnUpgrade(Math.floor(this.randomNumGen(0,4)));    
         
-     
+        this.buttons = this.upgradeManager.buttons;
 
         this.isPaused = false;
         this.isLevelUp = false;
@@ -34,10 +34,7 @@ export default class game_scene extends scene {
         this.leaves = [];
         this.bees = [];
         this.frogs = [];
-        this.buttons = [this.upgradeTab1,this.upgradeTab2];
-        this.buttons.forEach(button => {
-            button.isActive = false;
-        });
+        
         this.smokes = [];
 
         this.timeBetweenProjectileSpawn = 1000;
@@ -152,7 +149,8 @@ export default class game_scene extends scene {
 
         if(this.isLevelUp){
             this.pauseGame();
-            this.buttons.forEach(button=>{
+            this.upgradeManager.buttons.forEach(button=>{
+                console.log("1");
                 button.isActive = true;
                 button.draw(this.context);
             });

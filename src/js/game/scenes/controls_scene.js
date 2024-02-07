@@ -14,6 +14,7 @@ export default class controls_scene extends scene{
         this.buttons = [this.mainMenuButton];
 
     }
+    update(){}  
     draw(){
         this.context.beginPath();
         this.drawBackground('/src/assets/game/game_background.png');
