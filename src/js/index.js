@@ -12,6 +12,8 @@ window.onload = function(){
     var galleryDesc = document.getElementById("gallery").getElementsByClassName("desc");
     var accordionIndex = 4;
     var sectionIndex = 0;
+    const windowScreenLeft = window.screenLeft;
+    const windowScreenRight = window.screenRight;
     
     for(let i = 0; i < galleryProjects.length;i++){
         galleryProjects[i].addEventListener("mouseover", (event) => {
@@ -35,12 +37,12 @@ window.onload = function(){
             } else {
                 for(let j =0; j < accordionBtns.length; j++){
                     if(i!=j){
-                        accordionBtns[j].style.width = "16.66%";
+                        accordionBtns[j].style.width = "20%";
                         accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)";
                         
                         fadeOut(accordionInfos[j]);
                     } else{
-                        this.style.width ="50%";
+                        this.style.width ="40%";
                         this.style.backgroundColor = "#FFFFFF";
                         accordionIndex = i;
                         fadeIn(accordionInfos[i]);
@@ -121,7 +123,7 @@ window.onload = function(){
         navBarBtns[i].onclick = function(){
             if(i != sectionIndex){
                 disableInput();
-                sections[i].style.left = 4000 + "px";
+                sections[i].style.left = windowScreenLeft + "px";
                 moveSection("left", i);
             }
             
@@ -132,7 +134,7 @@ window.onload = function(){
         navLeftBtns[i].onclick = function(){
             disableInput();
             nextSectionIndex = spawnNextSection();
-            sections[nextSectionIndex].style.left = 4000 + "px";
+            sections[nextSectionIndex].style.left = windowScreenLeft + "px";
             moveSection("left", nextSectionIndex);
         }
     }
@@ -141,16 +143,14 @@ window.onload = function(){
         navRightBtns[i].onclick = function(){
             disableInput();
             nextSectionIndex = spawnPrevSection();
-            sections[nextSectionIndex].style.left = -4000 + "px";
+            sections[nextSectionIndex].style.left = -windowScreenLeft + "px";
             moveSection("right", nextSectionIndex);
         }
     }
 
     function moveSection(direction, nextSectionIndex){
         let id = null;
-        const originalLeftPos = sections[sectionIndex].style.left;
-        const originalRightPos = sections[sectionIndex].style.right;
-
+        
         
         sections[nextSectionIndex].style.display = "flex";
         
@@ -161,11 +161,8 @@ window.onload = function(){
         function frame(){
                 if(pos == 3000){
                     sections[sectionIndex].style.display = "none";
+                    sections[nextSectionIndex].style.left  = 0;
                     
-                    
-                    sections[sectionIndex].style.left = originalLeftPos;
-                    sections[sectionIndex].style.right = originalRightPos;
-
                     sectionIndex = nextSectionIndex;
                     enableInput();
                     clearInterval(id);
@@ -173,14 +170,14 @@ window.onload = function(){
                     pos += 10;
                     if(direction == "left"){
                         if(sections[nextSectionIndex].offsetLeft > 0){
-                            sections[nextSectionIndex].style.left = -pos + 2000 +  "px";
+                            sections[nextSectionIndex].style.left = -pos + windowScreenLeft +  "px";
                         }
                         
                         sections[sectionIndex].style.left = -pos + "px";
                         
                     } else if(direction = "right") {
                         if(sections[nextSectionIndex].offsetLeft < 0){
-                            sections[nextSectionIndex].style.left = pos - 2000 + "px";
+                            sections[nextSectionIndex].style.left = pos - windowScreenLeft + "px";
                             
                         }
                         

@@ -57,6 +57,7 @@
     background-color: white;
 }
 section{
+    
     z-index: -1;
     position: absolute;
     height:95vh;
@@ -80,6 +81,7 @@ section{
     border-right: 5px solid rgb(52, 78, 65);
     height: 100%;
     padding-top: 7vh;
+    
 }
 #game-back{
     background-color: rgb(58, 90, 64);
@@ -232,6 +234,15 @@ section{
 }
 .accordion-info:last-child{
     display: flex;
+}
+.accordion-text{
+    width:100%;
+}
+.accordion-text > p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(52, 78, 65);
+    
 }
 .accordion-text > h1{
     text-decoration: none;
@@ -508,6 +519,53 @@ h2{
 p{
     font-family: "Pacifico";
 }
+/*@media(max-width:420px){
+    #navbar > a{
+        font-size:15px !important;
+    }
+    
+    #navbar{
+        height:25px !important;
+    }
+    #accordion-btns{
+        background-color: aqua !important;
+    }
+    .accordion-btn{
+        color: aqua !important;
+        background-color: aqua !important;
+    }
+    footer{
+        height:20px !important;
+        
+    }
+    .codewars-icon-footer{
+        width:1rem !important;
+    }
+    .social-icons-footer{
+        padding-right: 5% !important;
+        font-size: 1rem !important;
+    }
+    #copyright{
+        padding-left: 5% !important;
+        font-size: 10px !important;
+    }
+}*/
+@media(max-width:500px){
+    .img-selfie{
+        display: none;
+    }
+    .grid-obj-1{
+        grid-column: 1/3;
+        grid-row:2;
+        margin-bottom: 70px;
+        margin-left:auto;
+        margin-right:auto;
+        padding: 0px;
+    }
+    .intro-sub-heading{
+        text-align: center;
+    }
+}
 @media(max-width:610px){
     #navbar > a{
         font-size:20px !important;
@@ -543,38 +601,18 @@ p{
     video{
         width:95% !important;
     }
+    #background-swapper > a{
+        margin-left:0px;
+        font-size: 15px;
+    }
+    #background-adjusters{
+        height:30px;
+    }
+    #slider-container{
+        padding-top: 5px;
+    }
 }
-/*@media(max-width:420px){
-    #navbar > a{
-        font-size:15px !important;
-    }
-    
-    #navbar{
-        height:25px !important;
-    }
-    #accordion-btns{
-        background-color: aqua !important;
-    }
-    .accordion-btn{
-        color: aqua !important;
-        background-color: aqua !important;
-    }
-    footer{
-        height:20px !important;
-        
-    }
-    .codewars-icon-footer{
-        width:1rem !important;
-    }
-    .social-icons-footer{
-        padding-right: 5% !important;
-        font-size: 1rem !important;
-    }
-    #copyright{
-        padding-left: 5% !important;
-        font-size: 10px !important;
-    }
-}*/
+
 @media(max-width:850px){
     #container{
         width:100% !important;
@@ -622,6 +660,33 @@ p{
         grid-row-end: 9 !important;
     }
 }
+@media(max-width:1120px) and (min-width:610px){
+    .accordion-btn{
+        font-size: 20px !important;
+    }
+    #accordion-btns{
+        height: 30px !important;
+    }
+}
+@media(max-width:1120px){
+    .img-selfie2{
+        display: none !important;
+    }
+    #intro-heading, #game-header{
+        font-size: 40px !important;
+    }
+    .intro-date{
+        font-size: 20px !important;
+        padding-top: 10px;
+    }
+    .intro-sub-heading{
+        font-size: 20px !important;
+    }
+    .btn-left, .btn-right{
+        height:20%;
+    }
+    
+}
 @media(max-width:1270px){
     h1{
         font-size: 60px !important;
@@ -635,9 +700,7 @@ p{
     .codewars-icon{
         width: 2rem !important;
     }
-    .accordion-text > h1{
-        font-size: 40px !important;
-    }
+ 
     #gallery{
         height:50% !important;
     }
@@ -656,21 +719,7 @@ p{
         font-size: 13px !important;
     }
 }
-@media(max-width:1120px){
-    .img-selfie2{
-        display: none !important;
-    }
-    #intro-heading{
-        font-size: 40px !important;
-    }
-    .intro-date{
-        font-size: 20px !important;
-        padding-top: 10px;
-    }
-    .intro-sub-heading{
-        font-size: 20px !important;
-    }
-}
+
 @media(max-width:1485px){
     #intro-heading{
         font-size: 50px;
@@ -685,21 +734,5 @@ p{
 @media(max-width:1720px){
     #intro-heading{
         font-size: 60px;
-    }
-}
-@media(max-width:500px){
-    .img-selfie{
-        display: none;
-    }
-    .grid-obj-1{
-        grid-column: 1/3;
-        grid-row:2;
-        margin-bottom: 70px;
-        margin-left:auto;
-        margin-right:auto;
-        padding: 0px;
-    }
-    .intro-sub-heading{
-        text-align: center;
     }
 }
