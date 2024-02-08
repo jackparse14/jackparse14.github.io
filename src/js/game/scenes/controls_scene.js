@@ -22,7 +22,7 @@ export default class controls_scene extends scene{
         this.drawTitle('center','middle','', '110', 'Plante','Controls', this.width/2, 120);
         this.drawText('center','middle','bold', '30' ,'arial','WASD - to move butterfly', this.width/2, 240);
         this.drawText('center','middle','bold', '30' ,'arial','Left Click - to shoot projectiles', this.width/2, 280);
-        this.drawText('center','middle','bold', '30' ,'arial','Destroy enemies to gain the highest score possible!', this.width/2, 350);
+        this.drawText('center','middle','bold', '30' ,'arial','Destroy enemies to gain score and to increase difficulty!', this.width/2, 350);
         this.context.closePath();
     }
 

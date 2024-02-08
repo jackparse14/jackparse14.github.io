@@ -6,7 +6,7 @@ import smoke from "../game_objects/smoke.js";
 import scene from "./scene.js";
 import progress_bar from "../user_interface/progress_bar.js";
 
-import upgrade_manager from "../upgrade_manager.js";
+//import upgrade_manager from "../upgrade_manager.js";
 export default class game_scene extends scene {
     constructor(width, height, context, input, currSceneIndex){
         super(width, height, context, input);
@@ -23,13 +23,14 @@ export default class game_scene extends scene {
         this.expPerLevelMod = 1.5;
         this.expBar = new progress_bar(0,0, this.width,10,"#0000FF","#344e41",this.expForLevel, true);
 
-        this.upgradeManager = new upgrade_manager(this);
-        this.upgradeManager.pickAnUpgrade(Math.floor(this.randomNumGen(0,4)));    
+        //this.upgradeManager = new upgrade_manager(this);
+        //this.upgradeManager.pickAnUpgrade(Math.floor(this.randomNumGen(0,4)));    
         
-        this.buttons = this.upgradeManager.buttons;
+        //this.buttons = this.upgradeManager.buttons;
+        this.buttons = [];
+
 
         this.isPaused = false;
-        this.isLevelUp = false;
 
         this.leaves = [];
         this.bees = [];
@@ -49,13 +50,10 @@ export default class game_scene extends scene {
         this.hasInit = false;
 
         this.hasReset = false;
-
         
         this.score = 0;
-        
-        
 
-        this.playerLevel = 0;
+        this.playerLevel = 1;
     }
     startSpawningEnemies(){
         if(this.projectileSpawnProgress > this.timeBetweenProjectileSpawn){
@@ -86,58 +84,38 @@ export default class game_scene extends scene {
         this.healthBar.x = this.player.x - (this.healthBar.width - this.player.width)/2;
       
         this.healthBar.y = this.player.y + this.player.height + 10;
+        
+        this.updateSmokes();
+        this.updateEnemies(this.leaves);
+        this.updateEnemies(this.frogs);
+        this.updateEnemies(this.bees);
+    }
+    updateSmokes(){
         for(let i = 0; i < this.smokes.length; i++){
             this.smokes[i].update();
             if(this.smokes[i].destroySelf){
                 this.smokes.splice(i,1);
             }
         }
-        for(let i = 0; i < this.leaves.length ;i++){
-            this.leaves[i].update();
-            if(this.leaves[i].hasCollidedWithPlayer){
-                this.spawnSmoke(this.leaves[i].x,this.leaves[i].y,this.leaves[i].width,this.leaves[i].height);
-                this.leaves.splice(i,1);
+    }
+    updateEnemies(enemyArray){
+        for(let i = 0; i < enemyArray.length; i++){
+            enemyArray[i].update();
+            if(enemyArray[i].hasCollidedWithPlayer){
+                this.spawnSmoke(enemyArray[i].x,enemyArray[i].y,enemyArray[i].width,enemyArray[i].height);
+                enemyArray.splice(i,1);
                 this.loseHealth();
-                this.loseScore();
-            }else if(this.leaves[i].hasCollidedWithBullet){
-                this.spawnSmoke(this.leaves[i].x,this.leaves[i].y,this.leaves[i].width,this.leaves[i].height);
-                this.leaves.splice(i,1);
-                this.addScore();
-                this.addExp();
-            } else if(this.leaves[i].isOutOfBounds){
-                this.leaves.splice(i,1);
-            }
-        }
-        for(let i = 0; i < this.bees.length ;i++){
-            this.bees[i].update();
-            if(this.bees[i].hasCollidedWithPlayer){
-                this.spawnSmoke(this.bees[i].x,this.bees[i].y,this.bees[i].width,this.bees[i].height);
-                this.bees.splice(i,1);
-                this.loseHealth();
-                this.loseScore();
-            }else if(this.bees[i].hasCollidedWithBullet){
-                this.spawnSmoke(this.bees[i].x,this.bees[i].y,this.bees[i].width,this.bees[i].height);
-                this.bees.splice(i,1);
-                this.addScore();
-                this.addExp();
-            } else if(this.bees[i].isOutOfBounds){
-                this.bees.splice(i,1);
-            }
-        }
-        for(let i = 0; i < this.frogs.length ;i++){
-            this.frogs[i].update();
-            if(this.frogs[i].hasCollidedWithPlayer){
-                this.spawnSmoke(this.frogs[i].x,this.frogs[i].y,this.frogs[i].width,this.frogs[i].height);
-                this.frogs.splice(i,1);
-                this.loseHealth();
-                this.loseScore();
-            }else if(this.frogs[i].hasCollidedWithBullet){
-                this.spawnSmoke(this.frogs[i].x,this.frogs[i].y,this.frogs[i].width,this.frogs[i].height);
-                this.frogs.splice(i,1);
-                this.addScore();
-                this.addExp();
-            } else if(this.frogs[i].isOutOfBounds){
-                this.frogs.splice(i,1);
+            }else if(enemyArray[i].hasCollidedWithBullet){
+                enemyArray[i].hasCollidedWithBullet = false;
+                enemyArray[i].loseHealth();
+                if(enemyArray[i].isDead){
+                    this.spawnSmoke(enemyArray[i].x,enemyArray[i].y,enemyArray[i].width,enemyArray[i].height);
+                    this.addScore(enemyArray[i].score);
+                    this.addExp(enemyArray[i].exp);
+                    enemyArray.splice(i,1);
+                }
+            } else if(enemyArray[i].isOutOfBounds){
+                enemyArray.splice(i,1);
             }
         }
     }
@@ -161,18 +139,18 @@ export default class game_scene extends scene {
        this.drawUI();
     }
     drawUI(){
-        this.drawText('center','middle','bold', '25', 'arial','Score: ' + this.score, this.width/2, 30);
+        this.drawText('center','middle','bold', '25', 'arial','Score: ' + this.score + " (x" + this.playerLevel + ")", this.width/2, 30);
         this.healthBar.draw(this.context);
         this.expBar.draw(this.context);
-        this.drawText('center','middle','bold', '25', 'arial','Level: ' + this.playerLevel, this.width/2, 120);
+        this.drawText('center','middle','bold', '25', 'arial','Level: ' + this.playerLevel, 60, 30);
 
-        if(this.isLevelUp){
+        /*if(this.isLevelUp){
             this.pauseGame();
             this.upgradeManager.buttons.forEach(button=>{
                 button.isActive = true;
                 button.draw(this.context);
             });
-        }
+        }*/
     }
 
     spawnSmoke(x,y,width,height){
@@ -198,18 +176,14 @@ export default class game_scene extends scene {
         this.frogs.push(this.frog);
     }
 
-    chooseUpgrade(){
-
-    }
-
     randomNumGen(min,max){
         let ranNum = (Math.random() * (max - min)) + min;
         return ranNum;
     }
 
-    addExp(){
-        this.exp += 10;
-        this.expBar.increaseFill(10);
+    addExp(addedEXP){
+        this.exp += addedEXP;
+        this.expBar.increaseFill(addedEXP);
         if(this.exp >= this.expForLevel){
             this.levelUp();
             this.expBar.resetBar();
@@ -221,23 +195,21 @@ export default class game_scene extends scene {
         this.expBar.maxProgress = this.expForLevel;
         this.exp = 0;
         this.playerLevel++;
-        this.isLevelUp = true;
+
+        this.timeBetweenProjectileSpawn /= 1.1;
+        this.timeBetweenBeeSpawn /= 1.1;
+        this.timeBetweenFrogSpawn /= 1.1;
     }
 
-    addScore(){
-        this.score += 1;
+    addScore(scoreToAdd){
+        this.score += scoreToAdd;
     }
-    loseScore(){
-        if(this.score > 0 ){
-            this.score -= 1;
-        }
-    }
-
     loseHealth(){
         this.player.startDamagedTimer();
         this.healthBar.reduceFill(1);
         this.health -= 1;
         if(this.health <= 0){
+            this.score *= this.playerLevel;
             this.currSceneIndex[0] = 2;
             this.hasReset = false;
         }
@@ -256,14 +228,26 @@ export default class game_scene extends scene {
     }
     resetGame(){
         this.health = 5;
+        this.playerLevel = 1;
+        this.expForLevel = 30;
         this.healthBar.resetBar();
         this.expBar.resetBar();
         this.score = 0;
         this.player.resetPlayer();
         this.leaves = [];
         this.bees = [];
+        this.frogs = [];
         this.player.playerBullets = [];
         this.hasInit = false;
         this.hasReset = true;
+
+        this.timeBetweenProjectileSpawn = 50;
+        this.projectileSpawnProgress = 0;
+
+        this.timeBetweenBeeSpawn = 100;
+        this.beeSpawnProgress = 0;
+
+        this.timeBetweenFrogSpawn = 100;
+        this.frogSpawnProgress = 0;
     }
 }
