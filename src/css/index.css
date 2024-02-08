@@ -49,10 +49,12 @@
 .btn-left{
     border-radius: 20px 0px 0px 20px;
     border-right:none;
+    height:200px;
 }
 .btn-right{
     border-radius: 0px 20px 20px 0px;
     border-left:none;
+    height: 200px;
 }
 /* SOCIALS --------------------------------------------------------------------------------*/
 .social-icons-intro{
@@ -569,12 +571,18 @@ p{
     #slider-container{
         padding-top: 5px;
     }
+    .btn-left, .btn-right{
+        display: none;
+    }
+    .accordion-info{
+        width:90%;
+    }
 }
 @media(max-width:850px){
     #container{
         width:100% !important;
     }
-    .intro-main{
+    .intro-main, #about-back, #projects-back, #game-back{
         width: 100% !important;
     }
     #gallery{
@@ -640,7 +648,7 @@ p{
         font-size: 20px !important;
     }
     .btn-left, .btn-right{
-        height:20%;
+        height:150px;
     }
 }
 @media(max-width:1270px){
