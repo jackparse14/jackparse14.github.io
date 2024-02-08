@@ -24,7 +24,7 @@ export default class Player extends animatedObject{
         this.timeBetweenAnimChange = 2;
 
         this.canBulletSpawn = true;
-        this.timeBetweenBulletSpawn = 40;
+        this.timeBetweenBulletSpawn = 10;
         this.bulletSpawnProgress = 0;
 
         this.playerBullets = [];

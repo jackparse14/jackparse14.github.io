@@ -25,6 +25,11 @@ export default class frog extends animated_object{
         this.canJump = false;
         this.canJumpProgress = 0;
 
+        this.health = 5;
+        this.score = 50;
+        this.exp = 25;
+        this.isDead = false;
+
         this.timeBetweenAnimChange = 5;
         this.hasInit = false;
     }
@@ -43,6 +48,12 @@ export default class frog extends animated_object{
     checkPlayerCollision(){
         if(this.checkCollision(this.game.player)){
             this.hasCollidedWithPlayer = true;
+        }
+    }
+    loseHealth(){
+        this.health--;
+        if(this.health <= 0 ){
+            this.isDead = true;
         }
     }
 

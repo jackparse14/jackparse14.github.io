@@ -26,6 +26,10 @@ export default class leaf extends game_object{
         }
 
         this.movespeed = 3;
+        this.isDead = false;
+        this.health = 2;
+        this.exp = 10;
+        this.score = 20;
     }
     update(){
         this.move();
@@ -33,6 +37,13 @@ export default class leaf extends game_object{
             this.hasCollidedWithPlayer = true;
         }
         this.checkOutOfBounds();
+    }
+
+    loseHealth(){
+        this.health--;
+        if(this.health <= 0 ){
+            this.isDead = true;
+        }
     }
 
     move(){

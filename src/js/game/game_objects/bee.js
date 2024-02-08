@@ -13,6 +13,11 @@ export default class bee extends animated_object{
             this.movespeed = -6;
         }
 
+        this.health = 1;
+        this.isDead = false;
+        this.score = 10;
+        this.exp = 5;
+
         this.yMoveSpeed = 3;
         this.maxY = y - 50;
         this.minY = y + 50;
@@ -35,6 +40,12 @@ export default class bee extends animated_object{
     checkPlayerCollision(){
         if(this.checkCollision(this.game.player)){
             this.hasCollidedWithPlayer = true;
+        }
+    }
+    loseHealth(){
+        this.health--;
+        if(this.health <= 0 ){
+            this.isDead = true;
         }
     }
 
