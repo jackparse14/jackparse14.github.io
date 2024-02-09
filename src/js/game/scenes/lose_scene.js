@@ -7,7 +7,6 @@ export default class lose_scene extends scene{
 
         this.score = null;
 
-        //Instantiate Buttons
         this.restartButton = new navButton(this.width/2 - 100,
                                            this.height/2 + 20,
                                            "Restart!",
@@ -28,8 +27,7 @@ export default class lose_scene extends scene{
 
         this.buttons = [this.restartButton,this.mainMenuButton,this.optionsButton];
     }
-    update(){
-    }
+    update(){}
     updateScore(newScore){
         this.score = newScore;
     }

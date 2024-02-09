@@ -5,7 +5,7 @@ export default class progress_bar{
 
         this.width = width;
 
-        
+        // Determines whether the bar is filled or emptied
         if(isIncrease){
             this.progressWidth = 0;
             this.startingWidth = 0;
@@ -21,16 +21,13 @@ export default class progress_bar{
 
         this.progress = 0;
         this.maxProgress = maxProgress;
-
-
     };
     draw(context){
+        // Draws the background of the bar
         context.fillStyle = this.backgroundColor;
         context.fillRect(this.x,this.y, this.width, this.height);
+        //  Draws the fill of the bar
         this.drawFill(context);
-        /*context.lineWidth = 2;
-        context.strokeStyle = this.fillColor;
-        context.rect(this.x,this.y,this.width,this.height);*/
     };
 
     drawFill(context){
@@ -39,7 +36,9 @@ export default class progress_bar{
     }
 
     reduceFill(reduceAmount){
+        //  Finds the percentage of the bar we want to reduce by
         this.progress = reduceAmount / this.maxProgress;
+        //  Reduces the bar by the progress amount
         this.progressWidth -= this.startingWidth * this.progress;
     }
     increaseFill(increaseAmount){

@@ -12,7 +12,6 @@ export default class controls_scene extends scene{
                                             0);
         
         this.buttons = [this.mainMenuButton];
-
     }
     update(){}  
     draw(){

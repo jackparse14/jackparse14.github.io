@@ -14,6 +14,7 @@ export default class nav_button extends button{
     }
 
     handleClick(){
+        //  Changes the scene when clicked
         this.currSceneIndex[0] = this.nextSceneIndex;
     }
 }

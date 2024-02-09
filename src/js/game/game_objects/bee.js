@@ -19,6 +19,8 @@ export default class bee extends animated_object{
         this.exp = 5;
 
         this.yMoveSpeed = 3;
+
+        // Bee will only move up and down by 50 pixels from where the b starts on the y axis
         this.maxY = y - 50;
         this.minY = y + 50;
 
@@ -52,12 +54,12 @@ export default class bee extends animated_object{
     move(){
         this.moveXDirection();
         this.moveYDirection();
-        
     }
     moveYDirection(){
         switch(this.yMovementState){
             case "UP":
                 this.currentFrame = 1;
+                // Bee moves upwards in y direction
                 this.y -= this.yMoveSpeed;
                 if(this.y <= this.maxY){
                     this.changeToStraightState();
@@ -65,6 +67,7 @@ export default class bee extends animated_object{
                 break;
             case "DOWN":
                 this.currentFrame = 1;
+                //  Bee moves downwards in y direction
                 this.y += this.yMoveSpeed;
                 if(this.y >= this.minY){
                     this.changeToStraightState();
@@ -72,6 +75,7 @@ export default class bee extends animated_object{
                 break;
             case "STRAIGHT":
                 this.currentFrame = 0;
+                //  Bee doesn't move in y direction
                 if(this.animProgress > this.timeBetweenAnimChange){
                     this.animProgress = 0;
                     this.changeToUpOrDownState();
@@ -97,6 +101,7 @@ export default class bee extends animated_object{
     }
 
     moveXDirection(){
+        // Bee constantly moves the same speed in the x direction
         this.x += this.movespeed;
     }
 }

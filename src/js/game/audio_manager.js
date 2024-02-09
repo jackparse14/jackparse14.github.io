@@ -6,14 +6,15 @@ export default class audio_manager{
        
         this.menuMusic.src = "/src/assets/game/audio/menu_background.mp3";
         this.gameMusic.src = "/src/assets/game/audio/game_background.mp3";
+        this.buttonSound.src = "/src/assets/game/audio/button_audio.wav";
 
         this.masterVolume = 0.5;
     }
     playButtonSound(){
-        this.buttonSound.src = "/src/assets/game/audio/button_audio.wav";
         this.buttonSound.play();
     }
     increaseVolume(){
+        //  Increases volume but it can't go above 1
         if(this.masterVolume < 1){
             this.masterVolume += 0.1;
             this.roundVolToOneDecimal();
@@ -21,6 +22,7 @@ export default class audio_manager{
         }
     }
     decreaseVolume(){
+        //  Decreases volume but it can't go below 0
         if(this.masterVolume > 0){
             this.masterVolume -= 0.1;
             this.roundVolToOneDecimal();
@@ -37,6 +39,7 @@ export default class audio_manager{
     }
 
     chooseMusic(sceneIndex){
+        //  Changes music based on the scene
         if(sceneIndex == 1){
             this.playGameMusic();
             this.pauseMenuMusic();
@@ -54,7 +57,6 @@ export default class audio_manager{
     }
     playMenuMusic(){
         this.menuMusic.play();
-        
     }
     pauseMenuMusic(){
         this.menuMusic.pause();

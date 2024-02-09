@@ -13,7 +13,6 @@ export default class game_scene extends scene {
 
         this.currSceneIndex = currSceneIndex;
 
-        //Instantiate GameObjects
         this.player = new player(60,48,this); 
         this.health = 5;
         this.healthBar = new progress_bar((this.width/1.5) - 50,60,this.player.width,5,"#FF0000", "#dad7cd", this.health, false);
@@ -25,10 +24,9 @@ export default class game_scene extends scene {
 
         //this.upgradeManager = new upgrade_manager(this);
         //this.upgradeManager.pickAnUpgrade(Math.floor(this.randomNumGen(0,4)));    
-        
         //this.buttons = this.upgradeManager.buttons;
+        
         this.buttons = [];
-
 
         this.isPaused = false;
 
@@ -56,6 +54,7 @@ export default class game_scene extends scene {
         this.playerLevel = 1;
     }
     startSpawningEnemies(){
+        //  Starts the timers for spawning enemies
         if(this.projectileSpawnProgress > this.timeBetweenProjectileSpawn){
             this.projectileSpawnProgress = 0;
             this.spawnProjectiles();
@@ -81,8 +80,8 @@ export default class game_scene extends scene {
         if(this.isPaused){return;};
         this.startSpawningEnemies();
         this.player.update();
+        //  Makes the health bar follow the player
         this.healthBar.x = this.player.x - (this.healthBar.width - this.player.width)/2;
-      
         this.healthBar.y = this.player.y + this.player.height + 10;
         
         this.updateSmokes();
@@ -102,19 +101,25 @@ export default class game_scene extends scene {
         for(let i = 0; i < enemyArray.length; i++){
             enemyArray[i].update();
             if(enemyArray[i].hasCollidedWithPlayer){
+                //  When an enemy collides with the player it is removed from the game and a smoke is spawned
                 this.spawnSmoke(enemyArray[i].x,enemyArray[i].y,enemyArray[i].width,enemyArray[i].height);
                 enemyArray.splice(i,1);
+                //  The player loses health
                 this.loseHealth();
             }else if(enemyArray[i].hasCollidedWithBullet){
                 enemyArray[i].hasCollidedWithBullet = false;
+                //  Enemy loses health when it collides with a bullet
                 enemyArray[i].loseHealth();
+                //  Checks if the enemy is dead
                 if(enemyArray[i].isDead){
+                    //  Removes enemy, spawns a smoke, adds score and exp
                     this.spawnSmoke(enemyArray[i].x,enemyArray[i].y,enemyArray[i].width,enemyArray[i].height);
                     this.addScore(enemyArray[i].score);
                     this.addExp(enemyArray[i].exp);
                     enemyArray.splice(i,1);
                 }
             } else if(enemyArray[i].isOutOfBounds){
+                // If an enemy goes off the screen it is removed from the game
                 enemyArray.splice(i,1);
             }
         }
@@ -122,11 +127,9 @@ export default class game_scene extends scene {
     draw(){
         this.drawBackground('/src/assets/game/game_background.png');
         this.player.drawSelf();
-
         this.smokes.forEach(smoke=>{
             smoke.drawSelf();
         });
-
         this.bees.forEach(bee =>{
             bee.drawFrame();
         });
@@ -175,6 +178,7 @@ export default class game_scene extends scene {
         this.frogs.push(this.frog);
     }
 
+    //  Returns a random number within min and max constraints
     randomNumGen(min,max){
         let ranNum = (Math.random() * (max - min)) + min;
         return ranNum;
@@ -184,17 +188,20 @@ export default class game_scene extends scene {
         this.exp += addedEXP;
         this.expBar.increaseFill(addedEXP);
         if(this.exp >= this.expForLevel){
+            //  If the amount of exp collected is more than exp needed then level up
             this.levelUp();
             this.expBar.resetBar();
         }
     }
 
     levelUp(){
+        //  Makes it harder to level up each time you level up
         this.expForLevel *= this.expPerLevelMod;
         this.expBar.maxProgress = this.expForLevel;
         this.exp = 0;
         this.playerLevel++;
 
+        //  Makes enemies spawn quicker
         this.timeBetweenProjectileSpawn /= 1.1;
         this.timeBetweenBeeSpawn /= 1.1;
         this.timeBetweenFrogSpawn /= 1.1;
@@ -205,9 +212,11 @@ export default class game_scene extends scene {
     }
     loseHealth(){
         this.player.startDamagedTimer();
+        //  Reduces health
         this.healthBar.reduceFill(1);
         this.health -= 1;
         if(this.health <= 0){
+            //  If player has no health then the score is calculated and the game ends
             this.score *= this.playerLevel;
             this.currSceneIndex[0] = 2;
             this.hasReset = false;

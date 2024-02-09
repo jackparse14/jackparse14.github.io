@@ -15,6 +15,7 @@ export default class animated_object extends game_object{
         this.game.context.drawImage(this.sprite,this.currentFrame * this.frameWidth,0, this.frameWidth,this.frameHeight,this.x,this.y, this.width,this.height);
     }
 
+    //  For drawing GameObjects that Rotate
     drawFrameRotate(){
         this.game.context.drawImage(this.sprite,this.currentFrame * this.frameWidth,0, this.frameWidth,this.frameHeight,this.width/-2,this.height/-2, this.width,this.height);
     }

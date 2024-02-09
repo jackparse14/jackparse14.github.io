@@ -24,20 +24,21 @@ export default class scene_manager{
         this.scenes = [this.menu_scene,this.game_scene, this.lose_scene, this.options_scene,this.controls_scene, this.credits_scene];
     }
 
-    init(){
-        
-    }
+    init(){}
 
     updateScene(){
-
+        //  When game scene starts it resets the game
         if(this.currSceneIndex == 1 && !this.scenes[this.currSceneIndex].hasReset){
             this.scenes[this.currSceneIndex].resetGame();
         } else if (this.currSceneIndex == 2){
+            //  When the player loses it updates the score
             this.scenes[this.currSceneIndex].updateScore(this.scenes[1].score);
         }
+    
         this.scenes[this.currSceneIndex].update();
 
         this.scenes[this.currSceneIndex].buttons.forEach(button => {
+            //  Checks if any buttons have been clicked
             if(button.isClickInBounds(this.input.clickCoord) && this.input.clickCoord.length != 0){
                 this.audio.playButtonSound();
                 button.handleClick();
@@ -45,13 +46,10 @@ export default class scene_manager{
              }
         });
 
+        // If the user interacts with the window then music starts playing
         if(navigator.userActivation.isActive){
             this.audio.chooseMusic(this.currSceneIndex);
         };
-        
-        
-
-
     }
 
     drawScene(){

@@ -36,6 +36,7 @@ export default class player_bullet extends game_object{
     }
     checkArrayCollision(array){
         array.forEach(element => {
+            //  Checks for collision against enemies
             if(this.checkCollision(element)){
                 element.hasCollidedWithBullet = true;
                 this.hasHitEnemy = true;
@@ -43,12 +44,12 @@ export default class player_bullet extends game_object{
         });
     }
     move(){
-        
+        //  Calculates the angle from where the bullet spawns to where the user clicked
         var deltaX = this.mouseCoordX - this.startingX;
         var deltaY = this.mouseCoordY - this.startingY;
-
         var angle = Math.atan2(deltaY,deltaX);
 
+        //  Moves the bullet in the direction of the angle
         this.x += Math.cos(angle) * this.moveSpeed;
         this.y += Math.sin(angle) * this.moveSpeed;
     }aw

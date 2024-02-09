@@ -4,6 +4,7 @@ export default class leaf extends game_object{
     constructor(game, x, y, spriteInt){
         super(x,y,20,20,game);
 
+        //  spriteInt is a random number and chooses which sprite we use for the leaf
         switch(spriteInt){ 
             case 0:
                 this.sprite.src = "../assets/game/leaf.png";
@@ -47,6 +48,7 @@ export default class leaf extends game_object{
     }
 
     move(){
+        // Leaf falls from the top of the screen in a vertical line
         this.y += this.movespeed;
     }
 

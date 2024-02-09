@@ -35,10 +35,6 @@ export default class frog extends animated_object{
     }
 
     drawSelf(){
-        /* HIT BOX OUTLINE
-        this.game.context.beginPath();
-        this.game.context.rect(this.x,this.y,this.width,this.height);
-        this.game.context.stroke();*/
         this.drawFrame();
         if(this.currentFrame == this.maxFrame){
             this.currentFrame = 0;
@@ -64,12 +60,14 @@ export default class frog extends animated_object{
     }
 
     move(){ 
-        
         if((this.reversed == 0 && this.x <= this.maxX) || (this.reversed == 1 && this.x >= this.maxX)){
+            //  Walk state
             this.animateWalk();
             this.x += this.moveSpeed;
         } else{
+            //  Jump state
             if(!this.canJump){
+                // Stops the frog before it jumps so player knows when it will jump
                 this.currentFrame = 2;
                 this.changeCanJump();
                 
@@ -95,9 +93,11 @@ export default class frog extends animated_object{
         }
     }
     jump(){
+        //  Makes the frogs jump slow down towards to the top and speed up as its falling
         this.y -= this.jumpSpeed * this.jumpModifier;
         this.decreaseJumpMod();
         this.x += this.moveSpeed;
+        //  Changes frogs look depending on whether frog is moving upwards or downwards in the y direction
         if(this.jumpModifier >= 0){
             this.currentFrame = 3;
         }else{

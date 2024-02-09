@@ -5,7 +5,6 @@ export default class lose_scene extends scene{
     constructor(width, height, context, input, currSceneIndex){
         super(width, height, context, input);
 
-        //Instantiate Buttons
         this.mainMenuButton = new navButton(this.width/2 - 100,
                                             this.height/2 + 200,
                                             "Main Menu",
@@ -14,9 +13,7 @@ export default class lose_scene extends scene{
           
         this.buttons = [this.mainMenuButton];
     }
-    update(){
-
-    }
+    update(){}
     draw(){
         this.context.beginPath();
         this.drawBackground('/src/assets/game/game_background.png');

@@ -17,6 +17,7 @@ window.addEventListener('load', function(){
     var frameCount = 0;
     
     function init(){
+        //  Runs the initalising before update
         scene_manager.init();
         fpsInterval = 1000/ targetFPS;
         firstTime = Date.now();
@@ -25,14 +26,17 @@ window.addEventListener('load', function(){
     }
 
     function update(){
+        //  Recursive loop being called as fast as the computer can process it
         requestAnimationFrame(update);
 
         lastTime = Date.now();
         elapsed = lastTime - firstTime;
 
+        //  Bottlenecks the game to run at 30 frames per second consistently
         if(elapsed > fpsInterval){
             firstTime = lastTime - (elapsed % fpsInterval);
 
+            //  Clears the canvas completely and updates and draws on it every frame
             ctx.clearRect(0,0, canvas.width,canvas.height);
             scene_manager.updateScene();
             scene_manager.drawScene();

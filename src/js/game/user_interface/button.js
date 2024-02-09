@@ -27,6 +27,7 @@ export default class button{
 
     isClickInBounds(clickCoord){
         if(this.isActive){  
+            //  If the users click is within the coordinates of the button returns true
             if(clickCoord[0] < this.x || clickCoord[0] > this.x + this.width || clickCoord[1] < this.y || clickCoord[1] > this.y + this.height){
                 return false;
             }else{
