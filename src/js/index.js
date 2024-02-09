@@ -1,7 +1,7 @@
 window.onload = function(){
     var sections = document.getElementsByTagName("section");
     var sectionIndex = 0;
-    const windowScreenLeft = window.screenLeft;
+    const windowWidth = window.innerWidth;
     var navBarBtns = document.getElementById("navbar").getElementsByTagName("a");
     var navLeftBtns = document.getElementsByClassName("btn-left");
     var navRightBtns = document.getElementsByClassName("btn-right");
@@ -31,6 +31,7 @@ window.onload = function(){
 
     for(let i = 0; i < accordionBtns.length;i++){
         accordionBtns[i].onclick = function(){
+            
             // If user clicks the same accordion button twice it will revert back to the state in which no buttons are clicked
             if(accordionIndex == i){
                 for(let j = 0; j < accordionBtns.length; j++){
@@ -138,7 +139,7 @@ window.onload = function(){
                 // Disable input until transition is done
                 disableInput();
                 // Sets the section to come in to be just out of the window
-                sections[i].style.left = windowScreenLeft + "px";
+                sections[i].style.left = windowWidth + "px";
                 moveSection("left", i);
             }
         }
@@ -148,7 +149,7 @@ window.onload = function(){
         navLeftBtns[i].onclick = function(){
             disableInput();
             nextSectionIndex = spawnNextSection();
-            sections[nextSectionIndex].style.left = windowScreenLeft + "px";
+            sections[nextSectionIndex].style.left = windowWidth + "px";
             moveSection("left", nextSectionIndex);
         }
     }
@@ -157,19 +158,22 @@ window.onload = function(){
         navRightBtns[i].onclick = function(){
             disableInput();
             nextSectionIndex = spawnPrevSection();
-            sections[nextSectionIndex].style.left = -windowScreenLeft + "px";
+            sections[nextSectionIndex].style.left = -windowWidth + "px";
             moveSection("right", nextSectionIndex);
         }
     }
 
     function moveSection(direction, nextSectionIndex){
+       
         let moveSectionTimer = null;
         sections[nextSectionIndex].style.display = "flex";
+        
         let pos = 0;
         var isTransFinished = false;
         clearInterval(moveSectionTimer);
         moveSectionTimer = setInterval(frame,5);
         function frame(){
+            
             //  Recursively adds 20 pixels to the section until it reaches the middle of the screen
             if(isTransFinished){
                 //  Hides old section
@@ -184,8 +188,8 @@ window.onload = function(){
                 //  Changes the direction the section moves depending on the direction parameter
                 if(direction == "left"){
                     if(sections[nextSectionIndex].offsetLeft > 0){
-                        //  Moves new sectin in
-                        sections[nextSectionIndex].style.left = -pos + windowScreenLeft +  "px";
+                        //  Moves new section in
+                        sections[nextSectionIndex].style.left = -pos + windowWidth +  "px";
                     } else {
                         //  Lets the loop know were finished
                         isTransFinished = true;
@@ -194,7 +198,7 @@ window.onload = function(){
                     sections[sectionIndex].style.left = -pos + "px";
                 } else if(direction = "right") {
                     if(sections[nextSectionIndex].offsetLeft < 0){
-                        sections[nextSectionIndex].style.left = pos - windowScreenLeft + "px";
+                        sections[nextSectionIndex].style.left = pos - windowWidth + "px";
                     } else {
                         isTransFinished = true;
                     }
