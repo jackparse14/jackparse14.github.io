@@ -33,7 +33,6 @@ export default class input_manager{
             canvas.addEventListener("mousemove", e =>{
                 if(!this.isActive){return;};
                 //  When the mouse is moved at anypoint this saves the coordinates of the mouse at its most recent position
-                console.log("hello");
                 this.mouseXCoord = e.pageX - (canvas.clientLeft + canvas.offsetLeft);
                 this.mouseYCoord = e.pageY - (canvas.clientTop + canvas.offsetTop);
             })
