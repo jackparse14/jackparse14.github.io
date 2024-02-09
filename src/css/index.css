@@ -406,13 +406,21 @@
     display: flex;
 }
 .accordion-text{
-    margin: 10px 30px;
+    margin: 10px 30px;  
     width:100%;
+    font-size: 30px;    
 }
+/*#post-uni > h1{
+    
+}
+#post-uni > p{
+    
+}*/
 .accordion-text > p{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: rgb(52, 78, 65);
+    font-size:0.8vw;
 }
 .accordion-text > p > a{
     color: black;
@@ -422,8 +430,9 @@
 }
 .accordion-text > h1{
     text-decoration: none;
-    font-size: 40px;
+    font-size: 1.4vw;
     margin: 0px;
+    
     width:100%;
 }
 .base > img{
@@ -694,9 +703,6 @@ p{
     .accordion-text > h1{
         font-size: 30px !important;
     }
-    .accordion-text > p{
-        font-size: 13px !important;
-    }
 }
 @media(max-width:1485px){
     #intro-heading{
@@ -708,9 +714,34 @@ p{
     .intro-date{
         font-size: 25px;
     }
+    
 }
 @media(max-width:1720px){
     #intro-heading{
         font-size: 60px;
     }
 }
+/*@media(max-width:850px){
+    #post-uni > h1{
+        font-size: 3vw;
+    }
+    #post-uni > p{
+        font-size:2.6vw;
+    }
+}
+@media(max-width:1485px)and (min-width:850px){
+    #post-uni > h1{
+        font-size: 2.2vw;
+    }
+    #post-uni > p{
+        font-size:1.8vw;
+    }
+}
+@media(max-width:2100px)and (min-width:1485px){
+    #post-uni > h1{
+        font-size: 1.9vw;
+    }
+    #post-uni > p{
+        font-size:1.5vw;
+    }
+}*/
