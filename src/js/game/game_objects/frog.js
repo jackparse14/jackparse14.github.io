@@ -20,7 +20,7 @@ export default class frog extends animated_object{
         
         this.jumpSpeed = jumpSpeed;
         this.fallSpeed = 1.5;
-        this.jumpModifier = 1;
+        this.jumpModifier = 0.5;
         this.jumpInterval = null;
         this.canJump = false;
         this.canJumpProgress = 0;

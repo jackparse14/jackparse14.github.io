@@ -169,10 +169,9 @@ export default class game_scene extends scene {
         this.projectile = new leaf(this, this.randomNumGen(0,this.width - 20),-50, Math.round(this.randomNumGen(0,5)));
         this.leaves.push(this.projectile);
     } 
-
     spawnFrogs(){
         if(this.isPaused){return;};
-        this.frog = new frog(this, -50, Math.round(this.randomNumGen(0,1)),this.randomNumGen(0,(this.width/2)), this.randomNumGen(1,3.5));
+        this.frog = new frog(this, -50, Math.round(this.randomNumGen(0,1)),this.randomNumGen(0,(this.width/2)), this.randomNumGen(3,14));
         this.frogs.push(this.frog);
     }
 
