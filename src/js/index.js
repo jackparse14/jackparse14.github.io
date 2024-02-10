@@ -12,7 +12,7 @@ window.onload = function(){
 
     var accordionBtns = document.getElementsByClassName("accordion-btn");
     var accordionInfos = document.getElementsByClassName("accordion-info");
-    var accordionIndex = 4;
+    var accordionIndex = 3;
 
     var galleryProjects = document.getElementById("gallery").getElementsByClassName("project");
     var galleryDesc = document.getElementById("gallery").getElementsByClassName("desc");
@@ -35,27 +35,27 @@ window.onload = function(){
             // If user clicks the same accordion button twice it will revert back to the state in which no buttons are clicked
             if(accordionIndex == i){
                 for(let j = 0; j < accordionBtns.length; j++){
-                    accordionBtns[j].style.width = "25%";
-                    accordionIndex = 4;
+                    accordionBtns[j].style.width = "33.33%";
+                    accordionIndex = 3;
                     fadeOut(accordionInfos[j]);
                     accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)"
-                    fadeIn(accordionInfos[4]);
+                    fadeIn(accordionInfos[3]);
                 }
             } else {
 
                 for(let j =0; j < accordionBtns.length; j++){
                     if(i!=j){
                         // Fades out the last accordion info 
-                        accordionBtns[j].style.width = "20%";
+                        accordionBtns[j].style.width = "25%";
                         accordionBtns[j].style.backgroundColor = "rgb(218, 215, 205)";
                         fadeOut(accordionInfos[j]);
                     } else{
                         // Fades in the new accordion info 
-                        this.style.width ="40%";
+                        this.style.width ="50%";
                         this.style.backgroundColor = "#FFFFFF";
                         accordionIndex = i;
                         fadeIn(accordionInfos[i]);
-                        fadeOut(accordionInfos[4]);
+                        fadeOut(accordionInfos[3]);
                     }
                 }
             }
