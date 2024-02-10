@@ -408,19 +408,13 @@
 .accordion-text{
     margin: 10px 30px;  
     width:100%;
-    font-size: 30px;    
+    overflow-y:auto;  
 }
-/*#post-uni > h1{
-    
-}
-#post-uni > p{
-    
-}*/
 .accordion-text > p{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: rgb(52, 78, 65);
-    font-size:0.8vw;
+    font-size:25px;
 }
 .accordion-text > p > a{
     color: black;
@@ -430,9 +424,8 @@
 }
 .accordion-text > h1{
     text-decoration: none;
-    font-size: 1.4vw;
+    font-size: 50px;
     margin: 0px;
-    
     width:100%;
 }
 .base > img{
@@ -721,27 +714,28 @@ p{
         font-size: 60px;
     }
 }
-/*@media(max-width:850px){
-    #post-uni > h1{
-        font-size: 3vw;
+
+@media(max-width:1024px){
+    .accordion-text > p{
+        font-size: 13px;
     }
-    #post-uni > p{
-        font-size:2.6vw;
+    .accordion-text > h1{
+        font-size: 20px !important;
     }
 }
-@media(max-width:1485px)and (min-width:850px){
-    #post-uni > h1{
-        font-size: 2.2vw;
+@media(max-width:1485px)and (min-width:1024px){
+    .accordion-text > p{
+        font-size: 15px;
     }
-    #post-uni > p{
-        font-size:1.8vw;
+    .accordion-text > h1{
+        font-size: 30px;
     }
 }
 @media(max-width:2100px)and (min-width:1485px){
-    #post-uni > h1{
-        font-size: 1.9vw;
+    .accordion-text > p{
+        font-size:20px;
     }
-    #post-uni > p{
-        font-size:1.5vw;
+    .accordion-text > h1{
+        font-size: 40px;
     }
-}*/
+}
